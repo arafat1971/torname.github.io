@@ -1,0 +1,39 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+
+{% if user.id == profile.id %} {% set owner = true %} {% endif %}
+
+<div class="container clearfix	well edit-profile-container"> 
+
+	<div class="col-lg-3 user-administration-nav">
+		<ul class="nav nav-pills nav-stacked" role="tablist">
+			  <li role="presentation"  {{ view == 'editprofile' ? 'class="active"' : ' '}} ><a href="{{paths.base_path}}/editprofile.php" aria-controls="editprofile" role="tab" >{{ attribute(lang,'Edit Profile')}}</a></li>
+			  {% if options.ads_user == 'Yes' %}
+			  <li role="presentation" {{ view == 'manageads' ? 'class="active"' : ' '}}><a href="{{paths.base_path}}/manageads.php">{{attribute(lang,'Advertisement')}}</a></li>
+			   <li role="presentation" class="active"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">{{ attribute(lang,'Settings')}}</a></li>
+			    <li role="presentation"><a href="#themes" aria-controls="settings" role="tab" data-toggle="tab">{{ attribute(lang,'Themes')}}</a></li>
+			  {% endif %}
+		</ul>
+	</div>
+
+	<div class="content col-lg-9 "> 
+		<div class="tab-content">
+
+            {% embed 'themes.html'%} {% endembed %}
+
+         </div>
+		
+	</div>
+
+</div>
+{% if flash == true %}	
+	<div class="field col-lg-9 col-lg-push-3">
+		<div class="alert flash-message alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  {{ flash|raw }}
+		</div>
+	</div>
+{% endif %}
+
+{% embed 'footer.html' %} {% endembed %}

@@ -1,0 +1,125 @@
+{% if video is not empty %}
+
+{% set fulscreen = false %}
+
+{% if ( _route is defined  ) and ( _route == 'index' ) %} 
+	{% set fulscreen = true %}
+{% endif %}
+<div>
+	<!-- Youtube Player -->
+	{% if video.source == 'youtube' %}
+		<div class="clearfix {% if fulscreen and view != 'edit' %} row edit-video-background {% endif %}">
+			<div class="{% if fulscreen %} col-lg-8 col-lg-push-2 {% endif %} clearfix">			
+				<div class="embed-responsive embed-responsive-16by9" >
+					<iframe class="embed-responsive-item"  src="{{options.protocol}}://www.youtube.com/embed/{{video.source_vid_id}}?rel=0{% if cookie.autoplay == 'true' %}&autoplay=1{% endif  %}&autohide=1&fs=1&hd=1&wmode=opaque&enablejsapi=1&color=white&modestbranding=1&theme=light&showinfo=0&iv_load_policy=3&vq=hd720"  allowfullscreen="" ></iframe>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+	
+	<!-- Vimeo Player -->
+	{% if video.source == 'vimeo' %}
+		<div class="clearfix {% if fulscreen and view != 'edit' %} row edit-video-background {% endif %}">
+			<div class="{% if fulscreen %} col-lg-8 col-lg-push-2 {% endif %} clearfix">			
+				<div class="embed-responsive embed-responsive-16by9" >
+					<iframe src="//player.vimeo.com/video/{{video.source_vid_id}}" ></iframe>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+
+	<!-- MP4 Player -->
+	{% if video.source == 'local' %}
+		<div class="clearfix {% if fulscreen and view != 'edit' %} row edit-video-background {% endif %}">
+			<div class="{% if fulscreen %} col-lg-8 col-lg-push-2 {% endif %} clearfix">			
+				<div class="embed-responsive embed-responsive-16by9" >
+					<video class="video-js videopreview" id="videopreview" {% if cookie.autoplay == 'true' %}autoplay{% endif  %} poster="{{video.vid_thumbnail}}"  >
+    					<source src="{{video.uri}}" type="video/mp4">
+    				</video>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+<div class="clearfix"></div>
+	{% if view != 'edit' %}
+	<div class="{% if fulscreen %} container {% else %} watch-title watch-title-background {% endif %} clearfix last-video-title-container">
+			<div class="last-video-title  col-lg-12">
+					<h2 >{% if video.source == 'youtube' %}{{video.title|jsondecode|raw}}{% else %} {{video.title|raw}} {% endif %}</h2><br>
+			</div>
+			<div class="col-lg-12 views-count">
+				<h3><span class="pull-right tar">{{video.views|number_format}} {{lang.Views}}</span></h3>
+			</div> 
+			<div class="col-lg-12 p20 pb0 pl0 pr0">
+						<div class="c-ytsubscribe pull-left channel-avatar">
+							<div class="avatar pull-left">
+								<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}">
+							<img src="{{video.vid_author_avatar}}" class="b0" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+						</a>
+							</div>
+						</div>
+						<div class="c-ytsubscribe">
+							<h5 class="bold mt0">
+								<strong>{{video.vid_author_name}}</strong>
+							</h5>
+						</div>
+						<div class=" pull-left">
+							{% if follows is not null and not owner and user %}
+								{% if follows.status %}
+								<div class="btn-group ">
+									<a href="#" class="btn btn-default disabled" >{{ follows.data.followers }}</a>
+									<a href="#" class="btn btn-default connect ladda-button " data-style="slide-right" data-spinner-color="#000" data-connection="unsubscribe" data-resource-id="{{video.vid_author_id}}"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span>&nbsp;&nbsp; {{ attribute(lang,'Subscribed') }}</a>
+								</div>
+								{% endif %}	
+								{% if not follows.status %}
+								<div class="btn-group ">
+									<a href="#" class="btn btn-default disabled" >{{ follows.data.followers }}</a>
+									<a href="#" class="btn btn-default connect  ladda-button light-theme-btn" data-style="slide-right" data-connection="subscribe" data-spinner-color="#000" data-resource-id="{{video.vid_author_id}}"><span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;&nbsp;  {{ attribute(lang,'Subscribe') }}</a>
+								</div>
+
+								{% endif %}	
+							{% endif %}
+							{%if not user %}
+							<div class="btn-group ">
+								<a href="#" class="btn btn-default disabled" >{{ follows.data.followers }}</a>
+								<a href="#" class="btn btn-default light-theme-btn" data-style="slide-right" type="button" data-toggle="modal" data-target="#logModal">{{ attribute(lang,'Subscribe') }}</a>
+							</div>
+							{%endif%}
+						</div>
+						<div class=" pull-right">
+							{% if follows is not null and not owner and user %}
+								{% if liked %}
+								<div class="btn-group ">
+									<a href="#" class="btn btn-default disabled" >{{ video.likes }}</a>
+									<a href="#" class="btn btn-default connect ladda-button" data-style="slide-right" data-spinner-color="#000" data-connection="unlike" data-resource-id="{{video.id}}" data-resource-type="video"><span class="glyphicon glyphicon-heart" aria-hidden="true"></span> &nbsp;&nbsp;{{ attribute(lang,'Unlike') }}</a>
+								</div>
+								{% endif %}	
+								{% if not liked %}
+								<div class="btn-group ">
+									<a href="#" class="btn btn-default disabled" >{{ video.likes }}</a>
+									<a href="#" class="btn btn-default connect  ladda-button light-theme-btn" data-style="slide-right" data-connection="like" data-spinner-color="#000" data-resource-id="{{video.id}}" data-resource-type="video"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>&nbsp;&nbsp; {{ attribute(lang,'Like') }}</a>
+								</div>
+
+								{% endif %}	
+							{% endif %}
+							{%if not user %}
+							<div class="btn-group ">
+								<a href="#" class="btn btn-default disabled" >{{ video.likes }}</a>
+								<a href="#" class="btn btn-default light-theme-btn" data-style="slide-right" type="button" data-toggle="modal" data-target="#logModal">{{ attribute(lang,'Like') }}</a>
+							</div>
+							{%endif%}
+						</div>
+				</div>
+				<!-- <div class="col-lg-12 views-count">
+							<h3><span class="pull-right tar">{{video.views|number_format}} {{lang.Views}}</span></h3>
+						</div> -->		
+	</div>
+	{% endif %}
+</div>
+{% endif %}
+{% if video is empty %}
+<div class=" row clearfix notfound edit-video-background">
+	<div class="col-lg-8 col-lg-push-2 clearfix">			
+				<p>{{ attribute(lang,'The video you are looking for is not avaliable at the moment... ')}}</p>
+	</div>
+</div>
+{% endif %}

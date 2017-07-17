@@ -1,0 +1,42 @@
+{% if (video) %}
+<div class="col-lg-12 autoplay-container">
+				<div class="pull-right">
+  					<a href="{{paths.base_path}}/watch.php?channel_id={{video.channel_id}}&amp;d={{video.id}}" class="btn  btn-xs btn-default light-theme-btn">{{attribute(lang,'Next up')}}</a>
+				</div>
+				<div class="pull-left">
+					{{attribute(lang,'Autoplay')}}
+				</div>
+				<label class="switch pull-left">
+	  					<input type="checkbox" id="autoplay" {% if cookie.autoplay == 'true' %} checked="checked"{% endif  %}>
+	  					<div class="slider round"></div>
+				</label>
+				
+				
+</div>
+<div class="clearfix"></div>
+<div class="next">
+	<div class="activity-video-card clearfix">
+		<div class="avatar pull-left parent_avatar activity-video-card-avatar">
+			<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}">
+				<img src="{% if video.vid_author_avatar == null %}{{paths.base_path}}/storage/avatar/default.png{% else %}{{video.vid_author_avatar}}{%endif%}" alt="" class="b0 br0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+			</a>
+		</div>
+		<div class="card-image  col-lg-12 pl0 pr0">
+			
+				<img class="img-responsive next-thumbnail" src="{{video.vid_thumbnail}}">
+				<span class="card-time activity-card-time">{{video.vid_duration}}</span>
+				<span class="videocard-play-icon"></span>
+			
+		</div>
+		<div class="col-lg-12">
+			<div class="card-title activity-card-title">
+				<h4 class="bold card-title-heading ">{{video.title|raw}}</h4>
+			</div>
+			<div class="card-content">
+				<h6>{{attribute(lang,'by')}} {{video.channel_name|raw}}</h6>
+			</div>
+		</div>
+		<a href="{{paths.base_path}}/watch.php?channel_id={{video.channel_id}}&amp;d={{video.id}}" class="activity-card-link"></a>	
+	</div>
+</div>
+{% endif %}

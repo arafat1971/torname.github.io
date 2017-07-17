@@ -1,0 +1,19 @@
+<div class="link link-static " id="link">
+			
+			<div class="link-header">
+				<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>{{title}}
+				<span class="glyphicon glyphicon-remove pull-right hide-link" id="hide-link"></span>
+			</div>
+			<div class="link-body clearfix">
+				<div class="avatar pull-left">
+					<a href="{{paths.base_path}}/profile.php?name={{card.username}}">
+						<img src="{% if card.avatar == null %}{{paths.base_path}}/storage/avatar/default.png{% else %}{{card.avatar}}{%endif%}" class="b0" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+					</a>
+				</div>
+				<div class="content pull-right not-padding">
+					<h5>{{card.username}}</h5>
+					<div class="col-lg-12 not-padding"><a href="{{paths.base_path}}/profile.php?name={{card.username}}" class="btn btn-default btn-sm bold  pull-right dark-theme-btn" data-follow="{{card.id}}"> {{attribute(lang,'Visit Profile') }}</a></div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+</div>

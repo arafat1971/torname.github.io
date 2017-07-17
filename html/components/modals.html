@@ -1,0 +1,133 @@
+{% if not user %}
+<!-- Log in -->
+<div class="modal fade" id="logModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header login-modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{ attribute(lang,'Whait... , You need an Username first !') }}</h4>
+      </div>
+      <div class="modal-body">
+        <div class="col-lg-10 col-lg-push-1">
+          <form action="" method="post" id="loginform">
+            <div class="field col-lg-12">
+              <div class="col-lg-3">
+                <label for="log-username" class="pull-right">{{ attribute(lang,'Username') }}</label>
+              </div>
+              <div class="col-lg-9">
+                <input type="text" name="username_field" class="form-control validation" id="log-username" autocomplete="off">
+                <label class="error text-default" id="error-username_field"></label>
+              </div>
+            </div>
+            <div class="field col-lg-12">
+              <div class="col-lg-3">
+                <label for="log-password" class="pull-right">{{ attribute(lang,'Password') }}</label>
+              </div>
+              <div class="col-lg-9">
+                <input type="password" name="password_field" class="form-control validation" id="log-password" autocomplete="off">
+                <label class="error text-default" id="error-password_field"></label>
+              </div>
+            </div>
+             <div class="field col-lg-12">
+              <div class="col-lg-3">
+              </div>
+              <div class="col-lg-9">
+               <a href="#" class="btn btn-default btn-block btn-lg" id="login-btn">{{ attribute(lang,'Log in') }} </a>
+               {% if fb_login_url %}
+               <p class="clearfix tac login-button-separator ">{{lang.Or|capitalize}}</p>
+                <a href="{{fb_login_url}}"  class="btn btn-block btn-default"><img src="{{paths.base_path}}/storage/img/FB-f-Logo__blue_29.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ attribute(lang,'Log in with Facebook') }}</a>
+                {% endif %}
+              </div>
+            </div>
+            <div class="field hidden">
+              <label for="log-remember">
+                <input type="checkbox" name="remember"  id="log-remember"> {{ attribute(lang,'Remember me') }}
+              </label>
+            </div>
+            <input type="hidden" name="token" class="form-control" id="token" value="{{token}}" >
+            
+            <div class="field clearfix col-lg-12 ">
+              <a href="{{paths.base_path}}/register.php" class="text-default pull-right">{{ attribute(lang,'Register') }}</a> &nbsp;
+             
+            </div>
+          </form>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+
+{% if user %}
+<!-- Add Video From Youtube -->
+<div class="modal fade " id="importYoutubeVideoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content transp b0">
+      <div class="modal-header login-modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+            
+        {% if step == 0 %}
+          <form role="form" action="" id="getyoutubedata" data-step={{step}} method="post">
+            <div class="col-lg-12 ">
+              <div class="col-lg-8 col-lg-push-2  clearfix">  
+                  <div class="form-group get-youtube-data-field">
+                  <label for="videourl">{{ attribute(lang,'Youtube video link') }}: </label>
+                    <div class="input-group">
+                      <input type="text" class="form-control flat-field" placeholder="e.g : https://www.youtube.com/watch?v=9bZkp7q19f0" name="yt_video" id="yt_video" aria-describedby="sendvid" value="{{input}}">
+                      <a href="#" class="input-group-addon wait btn btn-danger flat-field" id="importYoutubeVideo">{{ attribute(lang,'Get Video Info') }}</a> 
+                    </div>
+                    <label class="error text-danger field" id="error-yt_video"></label>
+                    <input type="hidden" name="token" id="token" value="{{token}}">
+                </div>
+
+                <label class="text-danger error">{{validationErrors[0]}}</label>
+              </div>
+            </div> 
+          </form>
+        {% endif %}
+          <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Video From Vimeo -->
+<div class="modal fade " id="importVimeoVideoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content transp b0">
+      <div class="modal-header login-modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+            
+        {% if step == 0 %}
+          <form role="form" action="" id="getvimeodata" data-step={{step}} method="post">
+            <div class="col-lg-12 ">
+              <div class="col-lg-8 col-lg-push-2  clearfix">  
+                  <div class="form-group get-youtube-data-field">
+                  <label for="videourl">{{ attribute(lang,'Vimeo video link') }}: </label>
+                    <div class="input-group">
+                      <input type="text" class="form-control flat-field" placeholder="e.g : https://vimeo.com/207285403" name="vimeo_video" id="vimeo_video" aria-describedby="sendvid" value="{{input}}">
+                      <a href="#" class="input-group-addon wait btn btn-danger flat-field" id="importVimeoVideo">{{ attribute(lang,'Get Video Info') }}</a> 
+                    </div>
+                    <label class="error text-danger field" id="error-yt_video"></label>
+                    <input type="hidden" name="token" id="token" value="{{token}}">
+                </div>
+
+                <label class="text-danger error">{{validationErrors[0]}}</label>
+              </div>
+            </div> 
+          </form>
+        {% endif %}
+          <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endif %}

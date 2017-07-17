@@ -1,0 +1,296 @@
+<!-- {% if activity.vid_author_avatar == null %}default.png{% else %}{{activity.vid_author_avatar}}{%endif%} -->
+
+{% if (activity.active) %}
+	{% if activity.type == 'youtube-post' or activity.type == 'vimeo-post'  %} 
+		<div class=" pull-left clearfix pr0 pl0 youtubevideocard">
+			<div class="activity-container">
+					<div class="activity-sum">
+						<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}" class="read-comment">{{activity.author_name}}</a>{{attribute(lang,'published a new video')}} 
+						<div class="pull-right activity-time-ago">
+							<span class="timeago">{{activity.created_at}}</span>
+						</div>
+					</div>
+					<div class="card">
+						<div class="card-header  clearfix">
+							<div class="avatar pull-left">
+								<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">
+									<img src="{{activity.author_avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+								</a>
+							</div>
+							<div class="username pull-left">
+								<h3><a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">{{activity.author_name}}</a></h3>
+							</div>
+							<div class="pull-right new-activity">
+								<span class="new-activity-badge">{{attribute(lang,'new video')}}</span>
+							</div>
+						</div>
+						<div class="clearfix"></div>
+						<div class="card-title plr15">
+							<h2 class="bold ">{%if activity.type == 'youtube-post'%}{{activity.title|jsondecode|raw}}{%else%}{{activity.title|raw}}{%endif%}</h2>
+						</div>
+						<div class="youtube-card-image" style="background: url('{{activity.vid_thumbnail}}'); background-size: 101% !important;position:relative;">
+						<a href="{{paths.base_path}}/watch.php?channel_id={{activity.author_name}}&d={{activity.id}}&v={{activity.source_vid_id}}" class="youtube-video-link">
+								<span class="card-time">{{activity.vid_duration}}</span>
+								<span class="videocard-play-icon" ></span>
+						</a>
+						</div>
+						
+						<div class="card-content plr15">
+							
+							{% if activity.vid_admin == true %}
+								<div>
+									<ol class="breadcrumb pull-right">
+									  <li><a href="{{paths.base_path}}/delete.php?vid={{activity.id}}">{{attribute(lang,'Delete')}}</a></li>
+									  <li><a href="{{paths.base_path}}/edit.php?vid={{activity.id}}">{{attribute(lang,'Edit')}}</a></li>
+									</ol>
+								</div>
+							{% endif %}
+						</div>
+						<div class="card-description expandable plr15">
+							<p>
+								{{activity.description|raw}}
+							</p>
+						</div>
+					</div>
+			</div>
+		</div>
+	{% else %}
+		{% if activity.parent_id == 0 and activity.level == 0 %}
+			<div class="activity">
+			<div class="activity-container">
+				<div class="activity-sum">
+					<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}" class="read-comment">{{activity.author_name}}</a> commented on <a href="{{paths.base_path}}/profile.php?name={{activity.vid_author_name}}" class="read-comment">{{activity.vid_author_name}}</a> video
+
+					<div class="pull-right activity-time-ago">
+						<span class="timeago">{{activity.created_at}}</span>
+					</div>
+				</div>
+				<div class="activity-header {{ activity.parent_id != 0 ? ' mt0 ' : ' ' }} clearfix">
+					<div class="avatar pull-left">
+						<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">
+							<img src="{{activity.author_avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+						</a>
+					</div>
+					<div class="pull-left activity-body">
+						<h3 class="pt0 mt0 mb0">
+							<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">{{activity.author_name}}</a>
+						</h3>
+							<div class="activity-body-content">
+								<h2 class="pt0 mt0">{{activity.comment|raw}}</h2>
+							</div>
+							<div class="activity-body-videocard">
+							
+								<div class="activity-video-card clearfix">
+									<div class="avatar pull-left parent_avatar activity-video-card-avatar">
+										<a href="{{paths.base_path}}/profile.php?name={{activity.vid_author_name}}">
+											<img src="{{activity.author_avatar}}" alt="" class="b0 br0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+										</a>
+									</div>
+									<div class="card-image  col-lg-12 pl0 pr0">
+										
+											<img class="img-responsive next-thumbnail" src="{{activity.vid_thumbnail}}">
+											<span class="card-time activity-card-time">{{activity.vid_duration}}</span>
+											<span class="videocard-play-icon" ></span>
+											<a href="{{paths.base_path}}/reply.php?channel_id={{activity.vid_author_name}}&d={{activity.id}}&c={{ activity.parent_id != 0 ? activity.parent_id : activity.activity_id }}{% if activity.parent_id != 0 %}&r={{activity.activity_id}}{% endif %}#{{activity.activity_id}}" class="activity-card-link"></a>	
+										
+									</div>
+									<div class="col-lg-10">
+										<div class="card-title activity-card-title">
+											<h4 class="bold card-title-heading ">{% if activity.vid_source_id != 'local'%} {{activity.title|jsondecode|raw}} {% else %} {{activity.title|raw}} {% endif %}</h4>
+										</div>
+										<div class="card-content">
+											
+										</div>
+									</div>
+									
+								</div>
+							</div>
+					</div>
+				</div>
+				
+				<div class="activity-footer">
+
+				</div>
+			</div>
+			</div>
+		{% elseif activity.parent_id != 0 and activity.level == 1 %}
+			<div class="parent-activity-header activity-header ml0 level1  clearfix">
+				<div class="avatar hidden pull-left parent_avatar">
+				</div>
+				<div class="pull-left activity-body ml0">
+					<h3 class="pt0 mt0 mb0">
+						<a href="{{paths.base_path}}/profile.php?name={{activity.parent_author_name}}">{{activity.parent_author_name}}
+						</a>
+					</h3>
+						<div class="activity-body-content">
+							<h3 class="pt0 mt0 ">{{activity.parent_comment|raw}}</h3>
+						</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<hr class="mb0 mt0">
+			<div class="activity">
+			<div class="order col-lg-12 mt0 mb0 pt0 pb0"></div>
+			<div class="activity-container">
+				<div class="activity-sum">
+					<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}" class="read-comment">{{activity.author_name}}</a> replied to <a href="{{paths.base_path}}/profile.php?name={{activity.parent_author_name}}" class="read-comment">{{activity.parent_author_name}}'s </a>comment on <a href="{{paths.base_path}}/profile.php?name={{activity.vid_author_name}}" class="read-comment">{{activity.vid_author_name}} </a> video
+
+				<div class="pull-right activity-time-ago">
+					<span class="timeago">{{activity.created_at}}</span>
+				</div>
+				</div>
+				<div class="activity-header clearfix">
+					<div class="avatar pull-left">
+						<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">
+							<img src="{{activity.author_avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+						</a>
+					</div>
+					<div class="pull-left activity-body">
+						<h3 class="pt0 mt0 mb0">
+							<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">{{activity.author_name}}</a>
+						</h3>
+							<div class="activity-body-content">
+								<h2 class="pt0 mt0">{{activity.comment|raw}}</h2>
+							</div>
+							<div class="activity-body-videocard">
+							
+								<div class="activity-video-card clearfix">
+									<div class="avatar pull-left parent_avatar activity-video-card-avatar">
+										<a href="{{paths.base_path}}/profile.php?name={{activity.vid_author_name}}">
+											<img src="{{activity.author_avatar}}" alt="" class="b0 br0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+										</a>
+									</div>
+									<div class="card-image  col-lg-12 pl0 pr0">
+										
+											<img class="img-responsive next-thumbnail" src="{{activity.vid_thumbnail}}">
+											<span class="card-time activity-card-time">{{activity.vid_duration}}</span>
+											<span class="videocard-play-icon" ></span>
+											<a href="{{paths.base_path}}/reply.php?channel_id={{activity.vid_author_name}}&d={{activity.id}}&c={{ activity.parent_id != 0 ? activity.parent_id : activity.activity_id }}{% if activity.parent_id != 0 %}&r={{activity.activity_id}}{% endif %}#{{activity.activity_id}}" class="activity-card-link"></a>	
+										
+									</div>
+									<div class="col-lg-10">
+										<div class="card-title activity-card-title">
+											<h4 class="bold card-title-heading ">{% if activity.vid_source_id != 'local'%} {{activity.title|jsondecode|raw}} {% else %} {{activity.title|raw}} {% endif %}</h4>
+										</div>
+										<div class="card-content">
+											
+										</div>
+									</div>
+									
+								</div>
+							</div>
+					</div>
+				</div>
+				
+				<div class="activity-footer">
+
+				</div>
+			</div>
+			</div>
+		{% elseif activity.parent_id != 0 and activity.level == 2 %}
+			
+			<div class="parent-activity-header activity-header ml0 level2  clearfix">
+				<div class="avatar hidden pull-left parent_avatar">
+				</div>
+				<div class="pull-left activity-body ml0">
+					<h3 class="pt0 mt0 mb0">
+						<a href="{{paths.base_path}}/profile.php?name={{activity.parent_author_name}}">{{activity.parent_author_name}}
+						</a>
+					</h3>
+						<div class="activity-body-content">
+							<h3 class="pt0 mt0 ">{{activity.parent_comment|raw}}</h3>
+						</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+			<hr class="mb0 mt0">
+			<div class="activity">
+			<div class="activity-container">
+				<div class="activity-sum">
+					<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}" class="read-comment">{{activity.author_name}}</a> replied to <a href="{{paths.base_path}}/profile.php?name={{activity.parent_author_name}}" class="read-comment">{{activity.parent_author_name}}'s </a>comment on <a href="{{paths.base_path}}/profile.php?name={{activity.vid_author_name}}" class="read-comment">{{activity.vid_author_name}} </a> video
+
+				<div class="pull-right activity-time-ago">
+					<span class="timeago">{{activity.created_at}}</span>
+				</div>
+				</div>
+				<div class="activity-header clearfix">
+					<div class="avatar pull-left">
+						<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">
+							<img src="{{activity.author_avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+						</a>
+					</div>
+					<div class="pull-left activity-body">
+						<h3 class="pt0 mt0 mb0">
+							<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">{{activity.author_name}}</a>
+						</h3>
+							<div class="activity-body-content">
+								<h2 class="pt0 mt0">{{activity.comment|raw}}</h2>
+							</div>
+							<div class="activity-body-videocard">
+							
+								<div class="activity-video-card clearfix">
+									<div class="avatar pull-left parent_avatar activity-video-card-avatar">
+										<a href="{{paths.base_path}}/profile.php?name={{activity.vid_author_name}}">
+											<img src="{{activity.author_avatar}}" alt="" class="b0 br0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+										</a>
+									</div>
+									<div class="card-image  col-lg-12 pl0 pr0">
+										
+											<img class="img-responsive next-thumbnail" src="{{activity.vid_thumbnail}}">
+											<span class="card-time activity-card-time">{{activity.vid_duration}}</span>
+											<span class="videocard-play-icon" ></span>
+											<a href="{{paths.base_path}}/reply.php?channel_id={{activity.vid_author_name}}&d={{activity.id}}&c={{ activity.parent_id}}&r={{activity.parent_id}}#{{activity.activity_id}}" class="activity-card-link"></a>	
+										
+									</div>
+									<div class="col-lg-10">
+										<div class="card-title activity-card-title">
+											<h4 class="bold card-title-heading ">{% if activity.vid_source_id != 'local'%} {{activity.title|jsondecode|raw}} {% else %} {{activity.title|raw}} {% endif %}</h4>
+										</div>
+										<div class="card-content">
+										
+										</div>
+									</div>
+									
+								</div>
+							</div>
+					</div>
+				</div>
+				
+				<div class="activity-footer">
+
+				</div>
+			</div>
+			</div>
+		{% elseif activity.parent_id == 0 and activity.level == 3 %}
+			<div class="activity">
+			<div class="activity-container">
+				<div class="activity-header mt0 clearfix">
+					<div class="avatar pull-left">
+						<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">
+							<img src="{{activity.author_avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+						</a>
+					</div>
+					<div class="pull-right activity-time-ago">
+					<span class="timeago">{{activity.created_at}}</span>
+					</div>
+					<div class="pull-left activity-body">
+						<h3 class="pt0 mt0 mb0">
+							<a href="{{paths.base_path}}/profile.php?name={{activity.author_name}}">{{activity.author_name}}</a>
+						</h3>
+							<div class="activity-body-content">
+								<h2 class="pt0 mt0">{{activity.comment|raw}}</h2>
+							</div>
+					</div>
+				</div>
+				
+				<div class="activity-footer">
+
+				</div>
+			</div>
+			</div>
+		{% endif %}
+		
+	{% endif %}
+
+{% endif %}
+<div class="clearfix"></div>

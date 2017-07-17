@@ -1,0 +1,38 @@
+<div role="tabpanel" class="tab-pane active" id="themes">
+
+                <form action="" method="post" id="themesform">
+    
+                    <!-- <div class="field col-lg-12">
+                      <div class="col-lg-3">
+                
+                      </div>
+                      <div class="col-lg-9">
+                        <h3>{{attribute(lang,'Select a theme')}}</h3>
+                      </div>
+                    </div> -->
+                    {% for template in templates %}
+                    <div class="col-lg-3 pull-left theme-swich">  
+                      <div class=" tac col-lg-12 clearfix template-thumb {% if user.theme == template.name%} active-template {% endif %}">
+                        <img src="{{paths.theme_path}}../{{template.name}}/img/thumb.png">
+                      </div>
+                      <div class="tac col-lg-12 ">
+                        <h3>{{template.name}}</h3>
+                        <a href="#" class="btn btn-default set-template {% if user.theme == template.name%} btn-link text-danger disabled {% endif %}" data-value="{{template.name}}">{% if user.theme == template.name%} {{attribute(lang,'Active Template')}} {% else %} {{lang.Select}}  {% endif %}</a>
+                      </div>
+                    </div>
+                    {% endfor %}
+
+                    
+                    <input type="hidden" name="theme_field" class="form-control validation" id="theme_field" autocomplete="off">
+                    
+
+                     <input type="hidden" name="token" class="form-control" id="token" value="{{token}}">
+                     <label class="error text-danger" id="error-token_field"></label>
+                    
+                    <div class="field clearfix col-lg-9 col-lg-push-3 ">
+                      <input type="submit" class="btn btn-danger pull-right submit-form" value="{{attribute(lang,'Save settings')}}">
+                    </div>
+
+                </form>
+
+            </div>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{%embed 'links.html' %} {% endembed %}
+	<script type="text/javascript" src="{{ paths.theme_path }}js/jquery.tubular.1.0.js"></script>
+	<style type="text/css">
+		body{
+			margin-top: 0 !important;
+			{% if errors %} background:#fff; {% endif %}
+		}
+		#tubular-container{
+			opacity: .5;
+			background: rgb(244,244,244);
+		}
+		.form-container, .tagline{
+			margin-top: 15%;
+		}
+		.well{
+			border-radius: 6px;
+		}
+	</style>
+</head>
+<body>
+<div id="tubular" class="clearfix">
+	{% embed 'navigation.html' %} {% endembed %}
+	<div class="container">	
+		<div class="col-lg-12" id="loginformcontainer">
+			
+			<div class="col-lg-4 form-container {% if errors %} col-lg-push-4 {% endif %}">
+				 <!-- <div class="col-lg-12 pr0 pl0 ">
+					<a href="{{fb_login_url}}" class="btn btn-block  b0 btn-lg btn-default btn-fb"><img src="{{paths.base_path}}storage/img/FB-f-Logo__white_29.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{attribute(lang,'Log in With Facebook')}}</a>
+				</div>
+				<div class="clearfix"></div>
+				
+				<div class="col-lg-12 field pl0 mb0 pr0">
+							              	<h5 class="mt0 tac">{{lang.Or}}</h2>
+				</div>  -->
+				<div class="clearfix"></div>
+				<div class="well clearfix">
+					
+					<form method="POST" action="#">
+			              <div class="col-lg-12 field pl0 pr0">
+			               	<div>
+                				<label for="username">{{ attribute(lang,'Username') }}</label>
+              				</div>
+              				<em class="error text-danger"><ol>{% for error in errors %}{% if error.field == 'username' %}<li> {{error.message}} </li>{% endif %}{% endfor %}</ol></em>
+			              	<input type="text" name="username" class="form-control validation" id="username" autocomplete="off" value="{{username}}" placeholder="{{attribute(lang,'Username')}}">
+			                	
+			              </div>
+			              <div class="col-lg-12 field pl0 pr0 mt0">
+			              	<div>
+                				<label for="password">{{ attribute(lang,'Password') }}</label>
+              				</div>
+              				<em class="error text-danger"><ol>{% for error in errors %}{% if error.field == 'password' %}<li> {{error.message}} </li>{% endif %}{% endfor %}</ol></em>
+			              	<input type="password" name="password" class="form-control validation" id="password" autocomplete="off" value="{{password}}" placeholder="{{attribute(lang,'Password')}}">
+			                	
+			              </div>
+			               <div class="col-lg-12 field mb0 pl0 pr0">
+			              	<input type="submit" class="btn btn-default btn-lg  btn-block" autocomplete="off" value="{{attribute(lang,'Sign In')}}">
+			              	{% if fb_login_url %}
+			              	<p class="clearfix tac login-button-separator ">
+			              		{{lang.Or|capitalize}}
+			              	</p>
+                			<a href="{{fb_login_url}}"  class="btn btn-block btn-default"><img src="{{paths.base_path}}/storage/img/FB-f-Logo__blue_29.png">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ attribute(lang,'Log in with Facebook') }}</a>
+                			{% endif %}
+			              </div>
+			              <div class="col-lg-12 field">
+			              <a class="pull-right" href="{{paths.base_path}}/register.php">{{attribute(lang,'Register')}}</a>
+			              <div class="clearfix"></div>
+			              </div>
+			               <input type="hidden" name="token" class="form-control" id="token" value="{{token}}">
+					</form>
+				</div>
+			</div>
+			{% if not errors %}
+			<div class="col-lg-7 col-lg-push-1 tagline tar">
+				<h3 class="">{{video.title}}</h3>
+				<span class="glyphicon glyphicon-volume-off tagline-volume"></span>
+			</div>
+			{% endif %}	
+		</div>
+		<div class="clearfix"></div>
+		<div class="row bg-white">
+			<h2 class="tac p20">"{{attribute(lang,'More From Our')}} {{options.sitename}} {{attribute(lang,'Video Comunity Network')}} ... "</h2>
+			<div class="container video-greed-container" id="cards-container">
+			{{recent.html|raw }}			
+			</div>
+			<div class="col-lg-6 col-lg-push-3 tac p20">
+				<a href="{{paths.base_path}}/all.php" class="btn btn-default">{{attribute(lang,'See All')}}</a>
+			</div>
+		</div>
+	</div>	
+</div>
+<div class="clearfix"></div>
+{% if not errors %}
+{{card|raw}}
+{% endif %}
+<div class="clearfix"></div>
+{% embed 'modals.html' %} {% endembed %}
+</body>
+{% if not errors %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#tubular').tubular({
+			videoId: '{{video.source_vid_id}}', //'LFyu29aGFtU'
+			start: 10, // starting position in seconds
+			muteButtonClass: 'tagline-volume'
+		/*	ratio: 16/9 // usually either 4/3 or 16/9 -- tweak as needed
+			videoId: 'ZCAnLxRvNNc' // toy robot in space is a good default, no?
+			mute: true
+			repeat: true
+			width: $(window).width() // no need to override
+			wrapperZIndex: 99
+			playButtonClass: 'tubular-play'
+			pauseButtonClass: 'tubular-pause'
+			muteButtonClass: 'tagline-volume'
+			volumeUpClass: 'tubular-volume-up'
+			volumeDownClass: 'tubular-volume-down'
+			increaseVolumeBy: 10 // increment value; volume range is 1-100
+			start: 0 // starting position in seconds
+		*/	
+		});
+
+		$('.tagline-volume').click(function(){
+			$(this).toggleClass('glyphicon-volume-up');
+		})
+
+		$('#loginformcontainer').css('height', $(window).height() - 100);
+
+	})
+</script>
+{% endif %}
+</html>
+
+{% for error in errors %}{% if error.field == username %} {{error.message}} {% endif %}{% endfor %}

@@ -1,0 +1,49 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+		<div class="container p20 pl0 pr0">
+				 {% for person in users %}
+					<div class="media-left p20 pl0 pb0"> 
+			  	 		<div class="avatar rounded-avatar">
+				  	 		<a href="{{paths.base_path}}/profile.php?name={{person.username}}">
+								<img src="{{person.avatar}}" class="b0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+							</a>
+						</div>
+			  		</div>
+				 {% endfor %}
+		</div>
+		<div class="container">
+			<div class="page-header">
+				 <h3>{{attribute(lang,'Most Liked Videos')}} <small>{{attribute(lang,'Recommended videos for you')}}</small> </h3>
+			</div>
+		</div>
+		<div class="container video-greed-container">
+			
+			{{mostliked|raw }}
+			
+		</div>
+		<div class="container">
+			<div class="page-header">
+				 <h3>{{attribute(lang,'Most Viewed Videos')}} <small>{{attribute(lang,'Recommended videos for you')}}</small> </h3>
+			</div>
+		</div>
+		<div class="container video-greed-container">
+			
+			{{mostviewed|raw }}
+			
+		</div>
+		<div class="container">
+			<div class="page-header">
+				 <h3>{{attribute(lang,'Recently Uploaded')}} <small>{{attribute(lang,'Recommended videos for you')}}</small> </h3>
+			</div>
+		</div>
+		<div class="container video-greed-container" id="cards-container">
+			
+			{{recentVideos|raw }}
+			
+		</div>
+		<div class="clearfix"></div>
+		<div class="col-lg-6 col-lg-push-3">
+		{{load_more|raw}}
+		</div>
+{% embed 'footer.html' %} {% endembed %}

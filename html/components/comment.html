@@ -1,0 +1,42 @@
+{% if commentdata %}
+
+	{% for comment in commentdata %}
+		
+		{% if comment.comment != " " %}
+
+			<div class="{% if  comment.parent_id != 0 %} reply col-lg-12 {% else %} comment col-lg-12 {% endif %} {% if single and comment.parent_id == 0 %}  single-comment {% elseif single and comment.parent_id != 0 %} single-reply {% endif %} clearfix" id={{comment.id}}>
+				<div class="pull-left">
+					<div class="c-ytsubscribe pull-left channel-avatar">
+						<div class="avatar pull-left">
+							<a href="{{paths.base_path}}/profile.php?name={{comment.author_name}}" >
+								<img src="{% if comment.author_avatar == null %}{{paths.base_path}}/storage/avatar/default.png{% else %}{{comment.author_avatar}}{% endif %}" alt="" class="{{ single and comment.parent_id == 0 ? ' b0 br0 ' : ''}}" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="last-video-title comment-content pull-left">
+						
+						<a href="{{paths.base_path}}/profile.php?name={{comment.author_name}}" class="comment-username">{{comment.author_name}}</a>
+						
+						<br>
+							{{ single ? ' <h3 class="mt0"> ' : ''}}{{comment.comment|raw}}
+						
+						<div>
+							<span class="comment-meta pull-right">{{comment.created_at }}</span>
+							{% if user and user.id == comment.author_id %} 
+							 	<a href="#" class="activity-sum delete read-comment edit-comment" data-resource-id="{{comment.id}}" data-resource-type="comment">{{lang.Delete}}	</a> 
+							 {%endif%} 
+							 {% if comment.parent_id == 0 and not (single) %} 
+							 	- <a href="#"{% if user %} class=" activity-sum read-comment reply-comment" data-parrent="{{comment.id}}" data-resource="{{comment.resource_id}}" data-name="{{comment.author_name}}" data-avatar="{{comment.author_avatar}}" data-c={{comment.comment|base64encode}} {% else %}  type="button" data-toggle="modal" data-target=" #logModal"  {% endif %} data-level="{{comment.level}}" >{{lang.Reply}}</a> 
+							{% endif %}
+							<div class="clearfix"></div>
+							<div class="reply-container clearfix"></div>
+						</div>
+				</div>
+			</div>
+
+		{% endif %}
+
+	{% endfor %}
+
+{% endif %}

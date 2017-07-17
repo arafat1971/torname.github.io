@@ -1,0 +1,44 @@
+<div class="clearfix"></div>
+			<div class="col-lg-6 col-lg-push-3 pull-left clearfix youtubevideocard">
+				<div class="card">
+					<div class="card-header clearfix">
+						<div class="avatar pull-left">
+							<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}">
+								<img src="{{video.vid_author_avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+							</a>
+						</div>
+						<div class="username pull-left">
+							<h3><a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}">{{video.vid_author_name}}</a></h3>
+						</div>
+						<div class="pull-right time-ago">
+							<span class="timeago">{{video.listing_date}}</span>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="card-title">
+						<h3 class="bold text-danger">{{video.title}}</h3>
+					</div>
+					<div class="youtube-card-image" style="background: url('{{video.vid_thumbnail}}')">
+					<a href="{{paths.base_path}}/watch.php?channel_id={{video.channel_id}}&d={{video.video_id}}&v={{video.yt_vid_id}}" class="youtube-video-link">
+							<span class="card-time">{{video.vid_duration}}</span>
+					</a>
+					</div>
+					
+					<div class="card-content">
+						<h5> {{video.views}} views _ {{ video.listing_date }} &#x25cf; by {{video.channel_name}} </h5>
+						{% if video.vid_admin == true %}
+							<div>
+								<ol class="breadcrumb pull-right">
+								  <li><a href="{{paths.base_path}}/delete.php?vid={{video.video_id}}">{{attribute(lang,'Delete')}}</a></li>
+								  <li><a href="{{paths.base_path}}/edit.php?vid={{video.video_id}}">{{attribute(lang,'Edit')}}</a></li>
+								</ol>
+							</div>
+						{% endif %}
+					</div>
+					<div class="carr-description">
+						<p>
+							{{video.description|raw}}
+						</p>
+					</div>
+				</div>
+			</div>

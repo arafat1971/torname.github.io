@@ -1,0 +1,168 @@
+
+{% if videos is not empty %}
+	<div class="clearfix video-greed-row">
+	{% for video in videos %}
+		
+
+		{% if (( loop.index - 1 ) is divisible by(5) and (loop.index != 1 ))%}
+	    
+	    	</div><div class="clearfix video-greed-row">
+		
+		{% endif %}
+			
+		{% if video.source == 'youtube' %}
+		<div class="col-lg-25 pull-left clearfix videocard">
+
+			<div class="card">
+			{% if video.vid_admin == true or user.group == 1 %}
+				<div>
+					<ol class="breadcrumb vid-actions-breadcrumb pull-right">
+					  	<li>
+					  		<a href="#" class="read-comment delete" data-resource-id="{{video.id}}" data-resource-type="video">
+					  			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				  			</a>
+			  			</li>
+					  	<li>
+					  		<a class="read-comment edit" href="{{paths.base_path}}/edit.php?vid={{video.id}}">
+					  			<span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
+					  		</a>
+				  		</li>
+					</ol>
+				</div>
+				<div class="clearfix"></div>
+			{% endif %}
+				<div class="card-image">
+				<a href="{{paths.base_path}}/watch.php?channel_id={{video.vid_author_name}}&d={{video.id}}&v={{video.yt_vid_id}}">
+						<img class="img-responsive" src="{{video.vid_thumbnail}}">
+						<span class="card-time">{{video.vid_duration}}</span>
+				</a>
+				</div>
+				<div class="card-title">
+					<h3 class="bold">{{video.title|jsondecode|raw}}</h3>
+				</div>
+				<div class="clearfix"></div>
+				<div class="card-author">
+					<div class="avatar pull-left videocard-avatar">
+						<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}">
+							<img src="{% if video.vid_author_avatar == NULL %}{{paths.base_path}}/storage/avatar/default.png{% else %}{{video.vid_author_avatar}}{% endif %}" alt="" class="br0 b0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+						</a>
+					</div>
+					<div class="pull-left card-content col-lg-10 pr0">
+						{{attribute(lang,'by')}}
+						<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}"> {{video.vid_author_name}}</a>
+						
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="card-content">
+					<h5> {{video.views}} views _ {{ video.listing_date }}</h5>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		
+		{% if video.source == 'vimeo' %}
+		<div class="col-lg-25 pull-left clearfix videocard">
+
+			<div class="card">
+			{% if video.vid_admin == true or user.group == 1 %}
+				<div>
+					<ol class="breadcrumb vid-actions-breadcrumb pull-right">
+					  	<li>
+					  		<a href="#" class="read-comment delete" data-resource-id="{{video.id}}" data-resource-type="video">
+					  			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				  			</a>
+			  			</li>
+					  	<li>
+					  		<a class="read-comment edit" href="{{paths.base_path}}/edit.php?vid={{video.id}}">
+					  			<span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
+					  		</a>
+				  		</li>
+					</ol>
+				</div>
+				<div class="clearfix"></div>
+			{% endif %}
+				<div class="card-image">
+				<a href="{{paths.base_path}}/watch.php?channel_id={{video.vid_author_name}}&d={{video.id}}&v={{video.yt_vid_id}}">
+						<img class="img-responsive" src="{{video.vid_thumbnail}}">
+						<span class="card-time">{{video.vid_duration}}</span>
+				</a>
+				</div>
+				<div class="card-title">
+					<h3 class="bold">{{video.title|raw}}</h3>
+				</div>
+				<div class="clearfix"></div>
+				<div class="card-author">
+					<div class="avatar pull-left videocard-avatar">
+						<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}">
+							<img src="{% if video.vid_author_avatar == NULL %}{{paths.base_path}}/storage/avatar/default.png{% else %}{{video.vid_author_avatar}}{% endif %}" alt="" class="br0 b0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+						</a>
+					</div>
+					<div class="pull-left card-content col-lg-10 pr0">
+						{{attribute(lang,'by')}}
+						<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}"> {{video.vid_author_name}}</a>
+						
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="card-content">
+					<h5> {{video.views}} views _ {{ video.listing_date }}</h5>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+		
+		{% if video.source == 'local' %}
+			<div class="col-lg-25 pull-left clearfix videocard">
+			<div class="card">
+			{% if video.vid_admin == true or user.group == 1 %}
+				<div>
+					<ol class="breadcrumb vid-actions-breadcrumb pull-right">
+					  	<li>
+					  		<a href="#" class="read-comment delete" data-resource-id="{{video.id}}" data-resource-type="video">
+					  			<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+				  			</a>
+			  			</li>
+					  	<li>
+					  		<a class="read-comment edit" href="{{paths.base_path}}/edit.php?vid={{video.id}}">
+					  			<span class="glyphicon glyphicon-scissors" aria-hidden="true"></span>
+				  			</a>
+			  			</li>
+					</ol>
+				</div>
+				<div class="clearfix"></div>
+			{% endif %}
+				<div class="card-image">
+				<a href="{{paths.base_path}}/watch.php?channel_id={{video.vid_author_name}}&d={{video.id}}&v={{video.yt_vid_id}}">
+						<img class="img-responsive" src="{{video.vid_thumbnail}}">
+						<span class="card-time">{{video.vid_duration}}</span>
+				</a>
+				</div>
+				<div class="card-title">
+					<h3 class="bold">{{video.title|raw}}</h3>
+				</div>
+				<div class="clearfix"></div>
+				<div class="card-author">
+					<div class="avatar pull-left videocard-avatar">
+						<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}">
+							<img src="{% if video.vid_author_avatar == NULL %}{{paths.base_path}}/storage/avatar/default.png{% else %}{{video.vid_author_avatar}}{% endif %}" alt="" class="br0 b0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+						</a>
+					</div>
+					<div class="pull-left card-content col-lg-10 pr0">
+						{{attribute(lang,'by')}}
+						<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}"> {{video.vid_author_name}}</a>
+						
+					</div>
+				</div>
+				<div class="clearfix"></div>
+				<div class="card-content">
+					<h5> {{video.views}} views _ {{ video.listing_date }} &#x25cf; by {{video.channel_name}} </h5>
+					
+				</div>
+			</div>
+		</div>
+		{% endif %}
+
+	{% endfor %}
+	</div>
+{% endif %}

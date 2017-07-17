@@ -1,0 +1,29 @@
+
+{% for someone in users %}
+				
+			  <li class="list-group-item">
+			  	<div class="media">
+			  	 	<div class="media-left"> 
+			  	 		<div class="avatar">
+				  	 		<a href="{{paths.base_path}}/profile.php?name={{someone.username}}">
+								<img src="{% if someone.avatar == NULL %}{{paths.base_path}}/storage/avatar/default.png{% else %}{{someone.avatar}}{% endif %}" class="b0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+							</a>
+						</div>
+			  		</div> 
+			  		<div class="media-body"> 
+			  			<h4 class="media-heading"><a href="{{paths.base_path}}/profile.php?name={{someone.username}}">{{someone.username}}</a></h4>
+			  			<div class="col-lg-12 pl0 pr0">
+			  				<div class="col-lg-9 pl0">
+			  					<p class="suggestion-content">{{someone.first_name}} {{someone.last_name}} {{someone.activity_count}}</p> 
+			  				</div>
+			  				<div class="col-lg-3 pr0">
+			  					<a href="#" {% if user %} class="btn btn-default wait  connect  btn-suggestion  ladda-button light-theme-btn" data-spinner-color="#000" data-style="slide-right" data-connection="subscribe" data-resource-id="{{someone.id}}" {% else %} class="btn btn-default  btn-suggestion" type="button" data-spinner-color="#000" data-toggle="modal" data-target="#logModal" {% endif %}>{{attribute(lang,'Follow')}} </a> 
+			  				</div>
+			  			</div> 
+			  			
+			  		</div> 
+			  	</div>
+			  </li>
+			
+
+{% endfor %}

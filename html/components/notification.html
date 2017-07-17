@@ -1,0 +1,83 @@
+{% if notification  %}
+<div id="popover_content_wrapper">
+	<div class="notification" >
+	<a href="#" class=""></a>
+		<div class="avatar pull-left">
+					<a href="{{paths.base_path}}profile.php?name={{notification.author_name}}">
+						<img src="{% if card.avatar == null %}{{paths.base_path}}/storage/avatar/default.png{% else %}{{notification.author_avatar}}{%endif%}" alt="" class="b0" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+					</a>
+		</div>
+		<div class="notificationcontent pull-left">
+		{% if notification.resource_type == 'comment' %}
+			<a href="{{paths.base_path}}profile.php?name={{notification.author_name}}">{{notification.author_name}}</a> {{attribute(lang,'added a comment on')}} {{attribute(lang,'your')}} {{attribute(lang,'video')}}
+			<br>
+			<div class="notification-card">
+				<div class="clearfix"></div>
+				<div class="card-image">
+					<a href="{{paths.base_path}}/reply.php?channel_id={{notification.vid_author_name}}&amp;d={{notification.video_id}}&amp;c={{notification.resource_id}}#{{notification.resource_id}}">
+							<img class="img-responsive" src="{{notification.vid_thumbnail}}">
+							<span class="card-time">{{notification.vid_duration}}</span>
+					</a>
+				</div>
+				<div class="card-title">
+					<h5 class="bold"><strong>{{notification.title}}</strong></h5>
+				</div>
+			</div>
+			<div class="pull-left activity-time-ago">
+				<span class="timeago">{{notification.created_at}}</span>
+			</div>
+		{% endif %}
+		{% if notification.resource_type == 'reply' %}
+			<a href="{{paths.base_path}}profile.php?name={{notification.author_name}}">{{notification.author_name}}</a> {{attribute(lang,'replied to')}} {{attribute(lang,'your')}} {{attribute(lang,'comment')}}
+			<br>
+			<div class="notification-card">
+				<div class="clearfix"></div>
+							<div class="card-image">
+				<a href="{{paths.base_path}}/reply.php?channel_id={{notification.vid_author_name}}&amp;d={{notification.video_id}}&amp;c={{notification.resource_parent_id}}&amp;r={{notification.resource_id}}#{{notification.resource_id}}">
+						<img class="img-responsive" src="{{notification.vid_thumbnail}}">
+						<span class="card-time">{{notification.vid_duration}}</span>
+				</a>
+				</div>
+				<div class="card-title">
+					<h5 class="bold"><strong>{{notification.title}}</strong></h5>
+				</div>
+			</div>
+			<div class="pull-left activity-time-ago">
+				<span class="timeago">{{notification.created_at}}</span>
+			</div>
+		{% endif %}	
+		{% if notification.resource_type == 'reply_2' %}
+			<a href="{{paths.base_path}}profile.php?name={{notification.author_name}}">{{notification.author_name}}</a> {{attribute(lang,'added a comment to')}} {{attribute(lang,'your')}} {{attribute(lang,'reply')}} on <a href="{{paths.base_path}}profile.php?name={{notification.vid_author_name}}">{{notification.vid_author_name}}'s </a>{{attribute(lang,'video')}}
+			<br>
+			<div class="notification-card">
+				<div class="clearfix"></div>
+				<div class="card-image col-lg-12 pl0 p10">
+					<div class="card-image">
+				<a href="{{paths.base_path}}reply.php?channel_id={{notification.vid_author_name}}&amp;d={{notification.video_id}}&amp;c={{notification.resource_parent_id}}&amp;r={{notification.resource_parent_id}}#{{notification.resource_id}}">
+						<img class="img-responsive" src="{{notification.vid_thumbnail}}">
+						<span class="card-time">{{notification.vid_duration}}</span>
+				</a>
+				</div>
+				</div>
+				<div class="card-title col-lg-12 pr0">
+					<h5 class="bold"><strong>{{notification.title}}</strong></h5>
+				</div>
+			</div>
+			<div class="pull-left activity-time-ago">
+				<span class="timeago">{{notification.created_at}}</span>
+			</div>
+		{% endif %}		
+		</div><div class="clearfix"></div>
+	</div>
+</div>
+{% elseif notification == false %}
+<div class="p20" >
+	<div class="col-lg-12 tac">
+	<p>
+		{{attribute(lang,'you don\'t have new unread notifications')}}
+	</p>
+		<a href="{{paths.base_path}}/../../notifications.php" class="btn btn-default b0 btn-block" >{{attribute(lang, 'Browse Old Notifications')}}</a>
+	</div>
+<div class="clearfix"></div>
+</div>
+{% endif %}

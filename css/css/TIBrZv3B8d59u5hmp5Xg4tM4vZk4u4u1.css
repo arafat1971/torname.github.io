@@ -1,0 +1,136 @@
+body{
+	background: #f1f1f1;
+}
+a {
+    color: #039be5;
+    text-decoration: none !important;
+}
+.new-activity-badge {
+    background: #c51109;
+    padding: 2px 15px;
+    color: #fff;
+    border-right: 0;
+}
+.views-count > h3 > span {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #c51109;
+    min-width: 200px;
+    margin-bottom: -2px;
+    box-shadow: 0px 1px 0px rgba(0,0,0,.05);
+    text-shadow: 0px 1px 0px rgba(0,0,0,.1);
+}
+.col-lg-25 {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.sidebar-container {
+    border: 1px solid #eee;
+    background: #fff;
+}
+.last-video-title-container {
+    background: #fff;
+}
+.pace .pace-progress {
+    background: #d9534f;
+}
+.pace .pace-activity {
+    border-top-color: #d9534f;
+    border-left-color: #d9534f;
+}
+
+.navbar-default {
+    border-bottom: 0;
+}
+.navbar-2{
+	border-bottom:1px solid #efefef; 
+}
+#replies {
+    background-color: #fff;
+}
+.list-group-item {
+    border-bottom: 0;
+    border-top: 0;
+}
+
+.dark-theme-btn, .dark-theme-btn:hover{
+	color: #fff;
+    background-color: #c51109;
+    border-color: #c51109;
+}
+.dark-theme-background{
+	background-color: #c51109; 
+}
+.light-theme-btn{
+	color: #fff;
+    background-color: #e62117;
+    border-color: #e62117;
+}
+.light-theme-btn:hover{
+	color: #fff;
+    background-color: #c51109;
+    border-color: #c51109;
+}
+.light-theme-background{
+	background-color: #e62117; 
+}
+input:checked + .slider{
+	background-color: #c51109;
+}
+
+
+/* Theme Navbar */
+.theme-navbar{
+ 	background-color:#c51109;
+    border-color: #c51109;
+}
+
+.active-menu {
+    border-bottom: 2px solid #fff;
+    margin-bottom: -1px;
+    box-shadow: 0px 1px 0px rgba(0,0,0,.05);
+}
+.pace .pace-progress {
+    background: #fff;
+}
+.pace .pace-activity {
+	display: none;
+    border-top-color: #d9534f;
+    border-left-color: #d9534f;
+}
+
+.theme-navbar .navbar-nav>li>a {
+    color: rgba(255,255,255,.7);
+}
+
+.theme-navbar .navbar-nav>li>a:focus, .theme-navbar .navbar-nav>li>a:hover {
+    color: #fff;
+    background-color: transparent;
+}
+
+.theme-navbar .navbar-brand {
+    color: #fff !important;
+}
+.search-input{
+	background-color: #e62117;
+	border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 4px;
+}
+.search-input::-webkit-input-placeholder{
+	color: $fff;
+}
+.search-button {
+    box-shadow: none !important;
+    background: #e62117 !important;
+    color: rgba(255,255,255,.7) !important;
+    border-color: #e62117 !important; 
+}
+
+
+/* Headroom */
+.headroom--pinned {
+    display: block;
+}
+.headroom--unpinned {
+    display: none;
+}

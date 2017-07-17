@@ -1,0 +1,75 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+
+<div class="container">
+
+	<div class="col-lg-7 col-md-7 col-xs-12 col-sm-12 pull-left not-padding">
+
+	{% if videoPlayer %}
+
+		{{ videoPlayer|raw }}
+
+	{% endif %}
+		<div class="video-description-container expandable col-lg-12">
+				<p class="published-at text-danger"> 
+				{{attribute(lang,'Published at')}} {{video.listing_date|date}}
+				</p>
+				<p class="description">
+					{{video.description|raw}}
+				</p>
+		</div>
+
+		<div class="video-comments-container col-lg-12">
+			<p class="published-at text-danger"> 
+				{{video.comments}} {{attribute(lang,'Comments')}}	
+			</p>
+			
+			<!-- Comment form -->
+
+			{{	commentform|raw }}
+
+			<!-- End Comments Form-->
+
+			<div class="clearfix"></div>
+
+			<!-- Comments and Replyes -->
+			<div class="comments-container clearfix">
+				{{ comments|raw }}	
+			</div>
+			
+
+			<!-- End Comments and Replyes -->
+		</div>
+	
+	</div>
+
+	<div class="col-lg-5 pull-left sidebar" >
+	{% if options.ads_user|lower == 'yes' %}
+				<div class="ads tac">
+					<!-- 300by280 ad size -->
+					<div class="tac">
+						{{ad_codes._300by280|raw}}
+					</div>
+
+				</div>
+	{% endif %}
+
+		<div class="col-lg-12 sidebar-container pr0 pl0 pull-left clearfix">
+			
+			{{next|raw}}		
+			
+			<p class="p15">{{attribute(lang,'More From')}}	<a href="{{paths.base_path}}/profile.php?name={{video.vid_author_name}}">{{video.vid_author_name}}</a></p>
+			{{ sidebarVideos|raw }}
+
+		</div>
+
+		<div class="clearfix"></div>
+	</div>
+
+	{{ videoCard|raw }}
+	
+	{{authorCard|raw}}
+</div>
+
+{% embed 'footer.html' %} {% endembed %}

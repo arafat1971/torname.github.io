@@ -1,0 +1,288 @@
+{% embed 'header.html' %} {% endembed %}
+<style>
+	.btn-lg {
+    padding: 10px 16px !important;
+    font-size: 18px !important;
+    line-height: 1.3333333 !important;
+	}
+	.cropit-preview{
+		width: 320px;
+		height: 180px;
+		margin: 0 auto;
+	}
+</style>
+{% embed 'navigation.html' %} {% endembed %}
+
+<div class="container pl0 pr0">
+<form action="" method="post" enctype="multipart/form-data">
+	<div class="col-lg-12 clearfix	pl0 pr0 ml0 mr0">
+		<div class="col-lg-10 col-xs-12 col-sm-12 col-md-12 col-lg-push-1">
+			
+            <div>
+	            	  <label class="p10"> {{ attribute(lang,'Start Upload')}}  </label>
+	        </div>
+	        <div class="col-lg-12 pr0 pl0 danger-background">
+	        	 <div class="preview tac clearfix" id="video-container">
+            	{% if (Inputs.duration) and (Inputs.duration) != '' %}
+	            	<video id="videopreview" class="video-js videopreview" {% if (Inputs.thumbnail) and (Inputs.thumbnail) != '' %} poster="{{Inputs.thumbnail}}"  {% endif %} >
+	            		<source src="{{paths.base_path}}/storage/video/{{Inputs.upload|url_encode}}" type="video/mp4">
+	            	</video>{% endif %}
+				</div>
+				<div class="col-lg-2  p20 ">
+						<a href="#" class="btn btn-lg btn-danger upload-video" id="btnAttachment" onclick="openAttachment()" value="File" >{{attribute(lang, 'Upload')}}
+						</a>
+				</div>
+				<div class="col-lg-10  p20 ">
+					<div class="col-lg-10">
+						<div class="progress">
+						  <div class="progress-bar progress-bar-danger progress-bar-striped btn btn-lg active" role="progressbar" aria-valuenow="0" id="progressBar" aria-valuemin="0" aria-valuemax="100" {% if (Inputs.duration) and (Inputs.duration) != '' %} style="width:100%" {% else %} style="width:0%" {% endif %} >
+						    <span id="status">&nbsp;</span>
+						  </div>
+						</div>
+					</div>
+					<div class="col-lg-2">
+						<h2 class="mb0 mt0 c-wheat">
+						{% if (Inputs.duration) and (Inputs.duration) != '' %} 
+							<a href="#"  id="vid_duration" class="btn btn-lg btn-danger "> 
+								{{Inputs.duration}}
+							</a> 
+						{%else%}
+						  <a href="#"  id="vid_duration" class="btn btn-lg btn-danger "> 
+								00 : 00
+							</a>  
+						{% endif %}
+						</h2>
+					</div>				
+				</div>
+	        </div>
+	        <div class="clearfix"></div>
+			<label class="error text-danger p10" id="error-lsitename_field">{{Errors.upload}}</label>
+	        <div class="clearfix"></div>
+	        <div>
+	            <label class="p10" for="video_title_field"> {{ attribute(lang,'Video Title')}}  </label>
+	           </div>
+			<div class="field col-lg-12 bg-white p20 pb0 border">
+                <input type="text" name="video_title_field" class="form-control validation flat-field" id="video_title_field" autocomplete="off"  placeholder="{{ attribute(lang,'Video Title')}} {{ attribute(lang,'Here')}}" value="{{Inputs.title}}">
+                <label class="error text-danger p10" id="error-lsitename_field">{{Errors.video_title_field}}</label>
+            </div>
+			<div class="clearfix"></div>
+			<div class="col-lg-12 pr0 pl0">
+
+				<div class="col-lg-12 pr0 pl0">
+					<div class="col-lg-6 pr0 pl0">
+						<div>
+		            		<label class="p10" for="video_description_field"> {{ attribute(lang,'Video Description')}}  </label>
+		            	</div>
+					</div>
+					<div class="col-lg-6 pr0 pl0 col-lg-push-1">
+						<div>
+	            	  		<label class="p10" for="video_category_field"> {{ attribute(lang,'Video Thumbnail')}}  </label>
+	            		</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>	
+				<div class="field col-lg-6 pr0 pl0 z-i">
+	            	<div id="video_description_field" class="flat-field">{{Inputs.description|raw}}</div>
+                	<label class="error text-danger" id="error-lsitename_field"></label>
+	            </div>
+	            <div class="field col-lg-5 pr0 bg-white pl0 col-lg-push-1 border">
+	            	<div class="col-lg-12">
+		              		
+					</div>
+                    <div class=" p20 pb0">
+                    	<div class="vid-thumbnail-image-editor">
+						        
+						        <div class="cropit-preview"></div>
+						        <input type="file" class="cropit-image-input hidden field">
+						        
+						        <div class="image-size-label p20 pb0">
+						          {{attribute(lang,'Resize image')}}<br><small class="text-danger">*</small>  
+						          {{attribute(lang,'Minimum size allowed')}} <small class="text-danger"> 320 X 180</small>  
+						        </div>
+						        <div class="field p20 pt0 pb0">
+						        	<input type="range" class="cropit-image-zoom-input field">	
+						        </div>
+						        <button class="btn btn-danger select-image-btn pull-right field"> {{attribute(lang,'Select Thumbnail')}} </button>
+						    </div>
+						    <input type="hidden" name="thumbnail" id="thumbnail_field" class="hidden-image-data" value="{{Inputs.thumbnail}}">
+						    <div class="clearfix"></div>
+                    </div>
+					<div class="clearfix"></div>
+					{% if Errors.thumbnail %}
+					<label class="error text-danger p10" id="error-lsitename_field">{{Errors.thumbnail}}</label>
+					{% endif %}
+            	</div>
+            	<div class="clearfix"></div>
+	            	
+                    
+            </div>
+			<div >
+				<label class="p10" for="video_category_field"> {{ attribute(lang,'Video Category')}}  </label>
+			</div>
+			<div class="field col-lg-12 p20  pr0 pl0  z-i">
+				            	  
+	            	   <div class=" bg-white p20 border">
+	            	   <label class="chip category-chip ">
+						  Uncategorized
+						  	<label class="switch  pull-right">
+			  					<input type="radio" checked="checked" name="category" value="0">
+			  					<div class="slider border bg-white round"></div>
+							</label>
+						</label>
+						{% for category in categories %}
+                    	<label class="chip category-chip">
+						  {{category.name}}
+						  	<label class="switch pull-right">
+			  					<input type="radio" name="category"   value="{{category.id}}">
+			  					<div class="slider bg-white border round"></div>
+							</label>
+						</label>
+						{% endfor %}
+			                    </div>
+			                    <label class="error text-danger" id="error-lsitename_field"></label>
+				            </div>
+			            </div> 
+            
+
+		</div>
+		<div class="col-lg-10 col-xs-12 col-sm-12 col-md-12 col-lg-push-1"> 
+            <div class="col-lg-12 hidden">
+	            <input type="hidden" name="duration" id="vid_duration_field" value="{{Inputs.duration}}">
+	            <input type="hidden" name="upload" id="vid_file_name" value="{{Inputs.upload}}">
+	            <input type="hidden" name="token" value="{{token}}">
+            </div>
+            <div class="col-lg-12 p20">
+            	<button id="upload-video" class="btn btn-danger btn-lg btn-block">{{attribute(lang,'save changes')}}</button>
+            </div>
+		</div>
+	</div>
+</form>
+<div id="multipart">
+	<form action="" method="post" Id="videoform" enctype="multipart/form-data">	
+		<input type="file" class="file" id="attachement" name="attachement" style="display: none;" onchange="fileSelected(this)"/>
+	</form>
+</div>	
+</div>
+
+{% embed 'footer.html' %} {% endembed %}
+<script type="text/javascript" src="{{ paths.base_path 	}}/js/trumbowyg.min.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	$('#video_description_field').trumbowyg();
+		
+});
+
+var file = "";
+var max_upload_size = "{{options.max_upload_size}}";
+var max_upload_size_bytes = {{options.max_upload_size_bytes}};
+
+function _(el){
+	return document.getElementById(el);
+}
+
+function openAttachment() {
+  _('attachement').click();
+}
+
+function fileSelected(input){
+  uploadfile();
+}
+
+function uploadfile(){
+	file = _("attachement").files[0];
+
+	if (file.type != 'video/mp4') {
+		swal({
+			  title: " ",
+			  text: "The File you are trying to upload is " + file.type + ", Please, upload an mp4 video.", /*lang['Please wright a new comment first! ']*/
+			 
+			  html: true,
+			  showCancelButton: false,
+			  confirmButtonClass: "btn-danger b0",
+			  confirmButtonText: "Ok",
+			  closeOnConfirm: true
+			},
+			function(){
+				return false;			
+			});
+		return;
+	}
+
+	if (file.size >= max_upload_size_bytes) {
+		swal({
+			  title: " ",
+			  text: "The video you are trying to upload is too big. The maximum video size we support is " + max_upload_size +"B", /*lang['Please wright a new comment first! ']*/
+			 
+			  html: true,
+			  showCancelButton: false,
+			  confirmButtonClass: "btn-danger b0",
+			  confirmButtonText: "Ok",
+			  closeOnConfirm: true
+			},
+			function(){
+				return false;			
+			});
+		return;
+	}
+
+	//alert(file.name+" | "+ file.type+"  | "+file.size );
+	
+	var formdata = new FormData();
+	formdata.append("file", file);
+	var ajax = new XMLHttpRequest();
+	ajax.upload.addEventListener("progress", progressHandler, false);
+	ajax.addEventListener("load", completeHandler, false);
+	ajax.addEventListener("error", errorHandler, false);
+	ajax.addEventListener("abort", abortHandler, false);
+	ajax.open("POST", js_base_path+"/helpers/upload.php");
+	ajax.send(formdata);
+}
+	
+function progressHandler(event){
+	//_("loaded_n_total").innerHTML = "Uploaded "+event.loaded+" bytes of "+event.total;
+	var percent = (event.loaded / event.total) * 100;
+	_("progressBar").style.width = Math.round(percent)+"%";
+	_("status").innerHTML = Math.round(percent)+"% Complete";
+}
+function completeHandler(event){
+	//_("status").innerHTML = event.target.responseText;
+	_("progressBar").value = 0;
+	_("video-container").innerHTML = event.target.responseText;
+	_("btnAttachment").classList.add('disabled');
+	var videoprev =  _('videopreview');
+	videoprev.load();
+	videojs(videoprev, 
+			{ 	"aspectRatio":"854:480", 
+				"playbackRates": [1, 1.5, 2],
+				controlBar: {
+				    muteToggle: false
+				  },
+				  'controls': true,
+				  {% if cookie.autoplay == 'true' %}'autoplay':true,{% endif  %}
+			 }, 
+			function(){
+				
+		  		var multipartform = document.getElementById('multipart');
+		  		multipartform.parentNode.removeChild(multipartform);
+			}
+	);
+    videoprev.addEventListener('loadeddata', function() {
+        var minutes = parseInt(videoprev.duration / 60, 10);
+		var seconds = parseInt(videoprev.duration % 60);
+		var vid_duration = n(minutes) +":"+n(seconds);
+		_("vid_duration").innerHTML = vid_duration;
+			_("vid_duration_field").value = vid_duration;
+			_("vid_file_name").value = file.name;
+    }, false);
+}
+function errorHandler(event){
+	_("status").innerHTML = "Upload Failed";
+}
+function abortHandler(event){
+	_("status").innerHTML = "Upload Aborted";
+}
+function n(n){
+    return n > 9 ? "" + n: "0" + n;
+}
+</script>

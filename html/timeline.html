@@ -1,0 +1,13 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+
+<div class="container" id="cards-container">
+	{{videos|raw}}
+</div>
+<div class="clearfix"></div>
+<div class="col-lg-6 col-lg-push-3">
+	{{load_more|raw}}
+</div>
+
+{% embed 'footer.html' %} {% endembed %}

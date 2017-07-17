@@ -1,0 +1,9 @@
+<div class="col-lg-3 user-administration-nav">
+		<ul class="nav nav-pills nav-stacked" role="tablist">
+			  <li role="presentation"  {{ view == 'editprofile' ? 'class="active"' : ' '}} ><a href="{{paths.base_path}}/editprofile.php" aria-controls="editprofile" role="tab" >{{ attribute(lang,'Edit Profile')}}</a></li>
+			  {% if options.ads_user == 'Yes' %}
+			  <li role="presentation" {{ view == 'manageads' ? 'class="active"' : ' '}}><a href="{{paths.base_path}}/manageads.php">{{attribute(lang,'Advertisement')}}</a></li>
+			  <li role="presentation" ><a href="{{paths.base_path}}/settings.php">{{ attribute(lang,'Settings')}}</a></li>
+			  {% endif %}
+		</ul>
+</div>

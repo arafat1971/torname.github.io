@@ -1,0 +1,35 @@
+
+{% if videos is not empty %}
+
+
+	{% for video in videos %}
+		
+		<div class="card1 clearfix">
+			<div class="card-image  col-lg-5">
+				<a href="{{paths.base_path}}/watch.php?channel_id={{video.data.vid_author_name}}&d={{video.data.id}}&v={{video.data.yt_vid_id}}">
+					<img class="img-responsive" src="{{video.data.vid_thumbnail}}">
+					<span class="card-time">{{video.data.vid_duration}}</span>
+				</a>
+			</div>
+			<div class="card-title">
+				<h3 class="mt0 card-title-heading">{{video.data.title|raw}}</h3>
+			</div>
+			<div class="card-content">
+				<h6>{{video.data.views}} views _ {{ video.data.listing_date }} &#x25cf; by {{video.data.channel_name}}</h6>
+				{% if video.data.vid_admin == true %}
+							<div>
+								<div>
+								<ol class="breadcrumb pull-right">
+								  <li><a href="{{paths.base_path}}/delete.php?vid={{video.id}}">{{attribute(lang,'Delete')}}</a></li>
+								  <li><a href="{{paths.base_path}}/edit.php?vid={{video.id}}">{{attribute(lang,'Edit')}}</a></li>
+								</ol>
+							</div>
+							</div>
+				{% endif %}
+			</div>	
+		</div>
+
+
+	{% endfor %}
+
+{% endif %}

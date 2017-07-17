@@ -1,0 +1,66 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+
+
+
+<div class="container row">
+	<div class="col-lg-3 pr0">
+
+	</div>
+	<div class="col-lg-6 " id="cards-container">
+	
+	{% if not activity %}
+		<div class="tac p20">
+			<span class="glyphicon glyphicon-eye-close no-activity-eye-close" aria-hidden="true" ></span>
+		</div>
+		<div class="tac">
+			<h2 class="text-danger">{{attribute(lang,'No activity to show.')}}</h2>
+			<button class="btn btn-default btn-lg b0"><span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span> {{attribute(lang,'find users.')}}</button>
+		</div>
+	{% endif %}
+
+	<div class="clearfix"></div>
+	<div class="card-author p20 clearfix">
+		<div class="pull-left card-content col-lg-10 pr0">
+		<div class="dropdown pull-left">
+			  <button class="btn btn-default dropdown-toggle navbar-btn transparent-btn  pt0 pb0 mt0 pl0" type="button" data-toggle="dropdown">{{attribute(lang,'Public Activity Feed')}} <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+			  	<li><a {% if user %} href="{{paths.base_path}}/activity.php" {% else %} href="#" type="button" data-toggle="modal" data-target="#logModal" {% endif %}>{{attribute(lang,'Your Follow Feed')}}</a></li>
+			  </ul>
+			</div>		
+		</div>
+	</div>
+	<div class="clearfix"></div>
+	
+	{% if suggestions != false %}
+		<div class="clearfix ">
+			<div class="suggestions">
+				<ul class="list-group">
+				  <li class="list-group-item">
+					<h3 class="mt0 mb0">{{attribute(lang,'Sugestions for you')}}</h3>
+				  </li>
+					{{suggestions|raw}}
+				</ul>
+			</div>
+		</div>
+	{% endif %}
+	
+	{% if activity %}
+		<hr class="mb0 mt0">
+		{{activity|raw}}
+	
+	{% endif %}
+	</div>
+	<div class="col-lg-3">
+		<!-- sidebar -->
+	</div>
+	<div class="clearfix"></div>
+	{% if activity %}
+	<div class="col-lg-12   pl0">
+		{{load_more|raw}}
+	</div>
+	{% endif %}
+</div>
+
+{% embed 'footer.html' %} {% endembed %}

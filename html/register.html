@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{%embed 'links.html' %} {% endembed %}
+	<script type="text/javascript" src="{{ paths.theme_path }}js/jquery.tubular.1.0.js"></script>
+	<style type="text/css">
+		body{
+			margin-top: 0 !important;
+			{% if errors %} background:#fff; {% endif %}
+		}
+		#tubular-container{
+			opacity: .2;
+			background: rgb(244,244,244);
+		}
+		.form-container, .tagline{
+			margin-top: 15%;
+		}
+		.well{
+			border-radius: 6px;
+		}
+	</style>
+</head>
+<body>
+<div id="tubular" class="clearfix">
+	{% embed 'navigation.html' %} {% endembed %}
+	<div class="container">	
+		<div class="col-lg-12">
+			
+			<div class="col-lg-4 col-lg-push-4 form-container">
+				<div class="clearfix"></div>
+				<div class="well clearfix">
+					<ol class="breadcrumb b0 mb0 tac">
+					  <li><a href="{{paths.base_path}}/login.php">{{attribute(lang,'Sign In')}}</a></li>
+					  <li class="active" >{{attribute(lang,'Register')}}</li>
+					</ol>
+					<form action="" method='post'>
+						<div class="col-lg-12 field pl0 pr0">
+			               	<div>
+                				<label for="username">{{ attribute(lang,'Username') }}</label>
+              				</div>
+              				<em class="error text-danger"><ol>{% for error in errors %}{% if error.field == 'username' %}<li> {{error.message}} </li>{% endif %}{% endfor %}</ol></em>
+			              	<input type="text" name="username" class="form-control validation" id="username" autocomplete="off" value="{{username}}" placeholder="{{attribute(lang,'Username')}}">
+			                	
+			            </div>
+			            <div class="col-lg-12 field pl0 pr0">
+			               	<div>
+                				<label for="first_name">{{ attribute(lang,'First name') }}</label>
+              				</div>
+              				<em class="error text-danger"><ol>{% for error in errors %}{% if error.field == 'first_name' %}<li> {{error.message}} </li>{% endif %}{% endfor %}</ol></em>
+			              	<input type="text" name="first_name" class="form-control validation" id="username" autocomplete="off" value="{{first_name}}" placeholder="{{attribute(lang,'First name')}}">
+			                	
+			            </div>
+			             <div class="col-lg-12 field pl0 pr0">
+			               	<div>
+                				<label for="first_name">{{ attribute(lang,'Last name') }}</label>
+              				</div>
+              				<em class="error text-danger"><ol>{% for error in errors %}{% if error.field == 'last_name' %}<li> {{error.message}} </li>{% endif %}{% endfor %}</ol></em>
+			              	<input type="text" name="last_name" class="form-control validation" id="username" autocomplete="off" value="{{last_name}}" placeholder="{{attribute(lang,'Last name')}}">
+			                	
+			            </div>
+			            <div class="col-lg-12 field pl0 pr0 mt0">
+			              	<div>
+                				<label for="password">{{ attribute(lang,'Password') }}</label>
+              				</div>
+              				<em class="error text-danger"><ol>{% for error in errors %}{% if error.field == 'password' %}<li> {{error.message}} </li>{% endif %}{% endfor %}</ol></em>
+			              	<input type="password" name="password" class="form-control validation" id="password" autocomplete="off" value="{{password}}" placeholder="{{attribute(lang,'Password')}}">
+			                	
+			             </div>
+			             <div class="col-lg-12 field pl0 pr0 mt0">
+			              	<div>
+                				<label for="repeat_password">{{ attribute(lang,'Repeat Password') }}</label>
+              				</div>
+              				<em class="error text-danger"><ol>{% for error in errors %}{% if error.field == 'repeat_password' %}<li> {{error.message}} </li>{% endif %}{% endfor %}</ol></em>
+			              	<input type="password" name="repeat_password" class="form-control validation" id="repeat_password" autocomplete="off" value="{{repeat_password}}" placeholder="{{attribute(lang,'Repeat Password')}}">
+			                	
+			              </div>
+							<input type="hidden" name="token" value="{{token}}">
+							<div class="field col-lg-12 pl0 pr0 mb0">
+								<input type="submit" class="btn btn-default  pull-right" autocomplete="off" value="{{attribute(lang,'Register')}}">
+							</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<div class="clearfix"></div>
+{% if not errors %}
+	{{card|raw}}
+{% endif %}
+<div class="clearfix"></div>
+{% embed 'modals.html' %} {% endembed %}
+</body>
+{% if not errors %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#tubular').tubular({
+			videoId: '{{video.source_vid_id}}', //'LFyu29aGFtU '
+			start: 10
+		});
+
+	})
+</script>
+{% endif %}
+</html>
+
+{% for error in errors %}{% if error.field == username %} {{error.message}} {% endif %}{% endfor %}

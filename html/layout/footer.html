@@ -1,0 +1,154 @@
+{% embed 'modals.html' %} {% endembed %}
+
+<script>
+	var imageData;
+	var scriptsCount;
+	function stripScripts(s) {
+	    var div = document.createElement('div');
+	    div.innerHTML = s;
+	    var scripts = div.getElementsByTagName('script');
+	    var alts = div.getElementsByTagName('img');
+	   	var j = alts.length;
+	    var i = scripts.length;
+	    scriptsCount = i;
+	    while(j--){
+	    	alts[j].removeAttribute("alt");
+	    }
+	    while (i--) {
+	      scripts[i].parentNode.removeChild(scripts[i]);
+	    }
+	    return div.innerHTML;
+	 }
+
+	$(document).ready(function(){
+		$(".add-comment").emojioneArea({
+			saveEmojisAs : 'image',
+			useSprite: false,
+			events:{
+				paste: function (editor, event) {
+			      console.log('event:paste');
+			    },
+			    change: function (editor, event) {
+
+				    if (editor.html().trim() !== '' && logged === true ) {
+
+				    	var plaintext = stripScripts(editor.text());
+				    	if (scriptsCount === 0 ) {
+				    		plaintext = stripScripts(editor.html());
+				    	}
+				    	var field = editor.parent().prev('textarea');
+				    		field.val(plaintext);
+
+				    	console.log(plaintext);
+						$('#commenttemplatecontent').html(plaintext);
+
+						{% if view == 'reply' %}
+
+								$('#replies').append($('#commenttemplate').html());
+									$('#replies').scrollTop($('#replies')[0].scrollHeight);
+
+						{% elseif view == 'watch' %}
+
+									$('.comments-container').prepend($('#commenttemplate').html());
+
+						{% endif %}
+
+				    }
+
+			    },
+			}
+		});
+
+		 $(".typed").typed({
+	        strings: ["●●●"],
+	        typeSpeed: 300,
+	        loop: true,
+	        showCursor: false,
+	      });
+		$('.image-editor').cropit({
+			 onImageLoaded: function (event){
+			 	imageData = $('.image-editor').cropit('export');
+  				$('.hidden-image-data').val(imageData);
+			 },
+			 onOffsetChange: function (event){
+			 	imageData = $('.image-editor').cropit('export');
+  				$('.hidden-image-data').val(imageData);
+			 }
+		});
+		$('.vid-thumbnail-image-editor').cropit({
+			{% if view == 'edit' %}
+			 imageState: { 
+			 	src:  '{{Inputs.thumbnail}}' 
+			 	},
+			 {% endif %} 
+			 {% if view == 'add' and Inputs.thumbnail != '' %}
+			 imageState: { 
+			 	src:  '{{Inputs.thumbnail}}' 
+			 	},
+			 {% elseif view == 'add' and Inputs.thumbanail == '' %}
+			 	imageState: { 
+			 	src:  '{{ paths.base_path }}/storage/thumbnails/default.jpg' 
+			 	},
+			 {% endif %} 
+			 onImageLoaded: function (event){
+			 	imageData = $('.vid-thumbnail-image-editor').cropit('export');
+  				$('.hidden-image-data').val(imageData);
+			 },
+			 onOffsetChange: function (event){
+			 	imageData = $('.vid-thumbnail-image-editor').cropit('export');
+  				$('.hidden-image-data').val(imageData);
+			 }
+		});
+		$('.select-image-btn').click(function(event) {
+			event.preventDefault();
+  			$('.cropit-image-input').click();
+  		});
+	});
+
+	{% if view == 'add' or view == 'watch' or view == 'reply' or view == 'last' or view == 'edit' %}
+
+		{% if video.source == 'local' %}
+			videojs(document.getElementById("videopreview"), 
+						{ 	"aspectRatio":"854:480", 
+							"playbackRates": [1, 1.5, 2],
+							controlBar: {
+							    muteToggle: false
+							  },
+							  'controls': true,
+							  {% if cookie.autoplay == 'true' %}'autoplay':true,{% endif  %}
+						 }, 
+						function(){
+					  	
+						}
+				);	
+		{% endif %}
+
+	{% endif %}
+	
+	$( document ).ajaxComplete(function() {
+	  $(".typed").typed({
+	        strings: ["●●●"],
+	        typeSpeed: 300,
+	        loop: true,
+	        showCursor: false,
+	      });
+	});
+</script>
+<input type="hidden" name="js-token" class="form-control" id="js-token" value="{{token}}" >
+<div class="clearfix"></div>
+<div id="popover_content_container" class="hidden">
+	<div id="popover_content_wrapper" class="clearfix popover_content_wrapper">
+		
+	</div>
+	<div class="notifications-footer">
+		<a href="#" class="pull-left">{{attribute(lang,'Mark All as Read')}}</a>
+		<a href="{{paths.base_path}}/notifications.php" class="pull-right">{{attribute(lang,'See All')}}</a>
+		<div class="clearfix"></div>	
+	</div>
+	
+</div>
+<footer class="tac">
+	copyright
+</footer>
+</body>
+</html>

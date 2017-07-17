@@ -1,0 +1,219 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+
+{% if user.id == profile.id %} {% set owner = true %} {% endif %}
+
+<div class="container clearfix	well edit-profile-container"> 
+
+	{% embed 'sidebar_user_administration.html' %}{% endembed %}
+
+	<div class="content col-lg-9 "> 
+		<div class="col-lg-12">
+			<ul class="nav nav-tabs" role="tablist">
+				  <li role="presentation" class="active"><a href="#editprofile" aria-controls="editprofile" role="tab" data-toggle="tab">{{ attribute(lang,'Edit Profile')}}</a></li>
+				  <li role="presentation"><a href="#changepassword" aria-controls="profile" role="tab" data-toggle="tab">{{ attribute(lang,'Change Password')}}</a></li>
+				  <li role="presentation"><a href="#changeprofilepicture" aria-controls="messages" role="tab" data-toggle="tab">{{ attribute(lang,'Change Profile Picture')}}</a></li>
+			</ul>
+	</div>
+		<div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="editprofile">
+
+		    	
+
+		    	<form action="" method="post" id="editprofileform">
+		    		
+		    		<div class="field col-lg-12">
+			    		<div class="col-lg-3">
+			    			<div class="avatar pull-right">
+								<a href="{{paths.base_path}}/profile.php?name={{user.username}}">
+									<img src="{{user.avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-9">
+							<h3>{{user.username}}</h3>
+						</div>
+		    		</div>
+		           	<div class="field col-lg-12">
+		           		<div class="col-lg-3">
+                			<label for="edit-username" class="pull-right"><h5 class="tar">  {{ attribute(lang,'Username')}} </h5></label>
+		              	</div>
+		              	<div class="col-lg-9">
+		                	<input type="text" name="username_field" class="form-control validation" id="username_field" autocomplete="off" placeholder="{{user.username}}">
+		                	<label class="error text-danger" id="error-username_field"></label>
+		              	</div>
+		            </div>
+		            <div class="field col-lg-12">
+		              <div class="col-lg-3">
+		              	<label for="edit-firstname" class="pull-right"><h5 class="tar"> {{ attribute(lang,'First name')}} </h5> </label>
+		              </div>
+		              <div class="col-lg-9">
+		              	<input type="text" name="first_name_field" class="form-control validation" id="firstname_field" autocomplete="off" value="{{user.first_name}}">
+		                	<label class="error text-danger" id="error-first_name_field"></label>
+		              </div>
+		            </div>
+		            <div class="field col-lg-12">
+		              <div class="col-lg-3">
+		              	<label for="edit-lastname" class="pull-right"><h5 class="tar"> {{ attribute(lang,'Last name')}} </h5></label>
+		              </div>
+		              <div class="col-lg-9">
+		              	<input type="text" name="lastname_field" class="form-control validation" id="lastname_field" autocomplete="off" value="{{user.last_name}}">
+		                	<label class="error text-danger" id="error-last_name_field"></label>
+		              </div>
+		            </div>
+		            <div class="field col-lg-12">
+		              <div class="col-lg-3">
+		              	<label for="edit-bio" class="pull-right"><h5 class="tar">  {{ attribute(lang,'Bio')}} </h5></label>
+		              </div>
+		              <div class="col-lg-9">
+		              	<textarea name="bio_field" id="bio_field" cols="30" rows="10" class="form-control validation">{{user.bio}}</textarea>
+		              	<label class="error text-danger" id="error-bio_field"></label>
+		              </div>
+		            </div>
+		            <div class="field col-lg-12">
+		              <div class="col-lg-3">
+		              	<label for="edit-email" class="pull-right"><h5 class="tar">  {{ attribute(lang,'Email')}} </h5></label>
+		              </div>
+		              <div class="col-lg-9">
+		              	<input type="text" name="email_field" class="form-control validation" id="email_field" autocomplete="off" placeholder="{{user.email}}">
+		                	<label class="error text-danger" id="error-email_field"></label>
+		              </div>
+		            </div>     
+		            <div class="field clearfix col-lg-9 col-lg-push-3 hidden" id="validation-errors-alert">
+		            	<div class="alert alert-danger alert-dismissible" role="alert">
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						  {{ attribute(lang,'validation error')|raw }}
+						</div>
+		            </div>
+		            <div class="field clearfix col-lg-9 col-lg-push-3 ">
+		              <a href="#" class="btn btn-default pull-right" id="edit-profile-btn"> {{ attribute(lang,'Edit Profile')}} </a>
+		            </div>
+
+		            <input type="hidden" name="token" class="form-control" id="token" value="{{token}}">
+		          </form>
+		    
+		    </div>
+		    <div role="tabpanel" class="tab-pane" id="changepassword">
+
+				<form action="" method="post" id="changepasswordform">
+	
+		    		<div class="field col-lg-12">
+			    		<div class="col-lg-3">
+			    			<div class="avatar pull-right">
+								<a href="{{paths.base_path}}/profile.php?name={{user.username}}">
+									<img src="{{user.avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-9">
+							<h3>{{user.username}}</h3>
+						</div>
+		    		</div>	
+		    	
+
+			    	<div class="field col-lg-12">
+			    		<div class="col-lg-3">
+			    			<label for="oldpassword_field" class="pull-right">
+			    				<h5 class="tar"> {{attribute(lang,'Old Password')}} </h5>
+			    			</label>
+						</div>
+						<div class="col-lg-9">
+							
+			              <input type="password" name="oldpassword_field" class="form-control validation" id="oldpassword_field" autocomplete="off">
+			              <label class="error text-danger" id="error-oldpassword_field"></label>
+						</div>
+		            </div>
+		            <div class="field col-lg-12">
+			    		<div class="col-lg-3">
+			    			<label for="newpassword_field" class="pull-right">
+			    				<h5 class="tar"> {{attribute(lang,'New Password')}} </h5> 
+			    			</label>
+						</div>
+						<div class="col-lg-9">
+							
+			              <input type="password" name="newpassword_field" class="form-control validation" id="newpassword_field" autocomplete="off">
+			              <label class="error text-danger" id="error-newpassword_field"></label>
+						</div>
+		            </div>
+		            <div class="field col-lg-12">
+			    		<div class="col-lg-3">
+			    			<label for="newpasswordagain_field" class="pull-right">
+			    				<h5 class="tar"> {{attribute(lang,'New Password, Again')}} </h5>
+			    			</label>
+						</div>
+						<div class="col-lg-9">
+							
+			              <input type="password" name="newpasswordagain_field" class="form-control validation" id="newpasswordagain_field" autocomplete="off">
+			              <label class="error text-danger" id="error-newpasswordagain_field"></label>
+						</div>
+		            </div>
+
+		             <input type="hidden" name="token" class="form-control" id="token" value="{{token}}">
+		            
+		            <div class="field clearfix col-lg-12 ">
+		              <a href="#" class="btn btn-default pull-right" id="change-password"> {{attribute(lang,'Change Password')}} </a>
+		            </div>
+
+		        </form>
+
+		    </div>
+		    <div role="tabpanel" class="tab-pane" id="changeprofilepicture">
+			    <div class="clearfix"></div>
+			    	<form action="" method="post" id="changepprofilepictureform">
+			    		<div class="col-lg-5 pl0 pr0">		
+					    	<div class="image-editor">
+						        <button class="btn btn-default btn-block select-image-btn field"> {{attribute(lang,'Select Your New Profile Picture')}} </button>
+						        <div class="col-lg-12">
+					              <label class="error text-danger" id="error-avatar_field"></label>
+								</div>
+						        <div class="cropit-preview"></div>
+						        <input type="file" class="cropit-image-input hidden field">
+						        
+						        <div class="image-size-label">
+						              {{attribute(lang,'Resize image')}}
+						        </div>
+						        <div class="field">
+						        	<input type="range" class="cropit-image-zoom-input field">	
+						        </div>
+						    </div>
+						    <input type="hidden" name="avatar_field" id="avatar_field" class="hidden-image-data">
+					    </div>
+					    <div class="field col-lg-7">
+				    		<div class="pull-left col-lg-3">
+				    			<div class="avatar pull-right">
+									<a href="{{paths.base_path}}/profile.php?name={{user.username}}">
+										<img src="{{user.avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+									</a>
+								</div>
+							</div>
+							<div class="pull-left">
+								<h3>{{user.username}}</h3>
+							</div>
+							<div class="clearfix"></div>
+							
+			    		</div>
+					    <input type="hidden" name="token" class="form-control" id="token" value="{{token}}">
+			            
+			            <div class="field clearfix col-lg-12 ">
+			              <a href="#" class="btn btn-default pull-right" id="change-profile-picture"> {{attribute(lang,'Save settings')}} </a>
+			            </div>
+			            <div class="clearfix"></div>
+					</form>
+				<div class="clearfix"></div>
+		    </div>
+		    <div role="tabpanel" class="tab-pane" id="settings">settings</div>
+		 </div>
+	</div>
+
+</div>
+{% if flash == true %}	
+	<div class="field col-lg-9 col-lg-push-3">
+		<div class="alert flash-message alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  {{ flash|raw }}
+		</div>
+	</div>
+{% endif %}
+
+{% embed 'footer.html' %} {% endembed %}

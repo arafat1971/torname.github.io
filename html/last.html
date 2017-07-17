@@ -1,0 +1,20 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+		
+		{% if videoPlayer %}
+			
+			{{ videoPlayer|raw }}
+		
+		{% endif %}
+
+		<div class="container video-greed-container">
+			
+			{{recentVideos|raw }}
+			
+		</div>
+
+
+		{{authorCard|raw}}
+	
+{% embed 'footer.html' %} {% endembed %}

@@ -1,0 +1,43 @@
+<title>{{options.sitename}}</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
+<link rel="stylesheet" href="{{ paths.base_path }}/css/sweetalert.css">
+<link rel="stylesheet" href="{{ paths.base_path }}/templates/{{options.theme}}/css/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ paths.base_path }}/css/ladda-themeless.css">
+{% if view == 'add' or view == 'edit' %}
+<link rel="stylesheet" href="{{ paths.base_path }}/css/trumbowyg.css">
+{% endif %}
+<link rel="stylesheet" href="{{ paths.base_path }}/templates/{{options.theme}}/css/css/pace.css">
+<link rel="stylesheet" href="{{ paths.base_path }}/templates/{{options.theme}}/css/style.css">
+<link rel="stylesheet" href="{{ paths.base_path }}/css/cropit.css">
+{% if view == 'add' or view == 'watch' or view == 'reply' or view == 'last' or view == 'edit' %}
+<link rel="stylesheet" href="{{ paths.base_path }}/css/video-js.css">
+<link rel="stylesheet" href="{{ paths.base_path }}/css/vjs-default-skin.css">
+{% endif %}
+<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<script>const js_base_path = '{{paths.base_path}}'; var logged = {% if user %}true{% else %}false {% endif %} ;var jstoken = '{{token}}';var replyform = '';var offset = 0; var notificationsOffset = 1 ; const lang = {{lang|json_encode()|raw}}; const view = '{{view}}';</script>
+<script type="text/javascript" src="{{ paths.base_path }}/templates/{{options.theme}}/js/jquery.min.js"></script>
+<script type="text/javascript" src="{{ paths.base_path }}/js/jquery.cropit.min.js"></script>
+{% if view == 'add' or view == 'watch' or view == 'reply' or view == 'last' or view == 'edit'%}
+<script type="text/javascript" src="{{ paths.base_path 	}}/js/video.js"></script>	
+{% endif %}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/1.1.4/typed.min.js"></script>
+<script type="text/javascript" src="{{ paths.base_path 	}}/js/emojionearea.js"></script>	
+<script type="text/javascript" src="{{ paths.base_path }}/templates/{{options.theme}}/js/base64.min.js"></script>
+<script type="text/javascript" src="{{ paths.base_path }}/templates/{{options.theme}}/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="{{ paths.base_path 	}}/js/spin.min.js"></script>
+<script type="text/javascript" src="{{ paths.base_path 	}}/js/ladda.min.js"></script>
+<script type="text/javascript" src="{{ paths.base_path }}/templates/{{options.theme}}/js/pace.js"></script>
+<script type="text/javascript" src="{{ paths.base_path 	}}/js/sweetalert.min.js"></script>
+<script type="text/javascript" src="{{ paths.base_path 	}}/js/common.js"></script>
+<script type="text/javascript" src="{{ paths.base_path }}/templates/{{options.theme}}/js/headroom.min.js"></script>	
+<script type="text/javascript" src="{{ paths.base_path }}/templates/{{options.theme}}/js/script.js"></script>
+<script src="https://apis.google.com/js/platform.js"></script>
+<link rel="stylesheet" href="{{ paths.base_path }}/templates/{{options.theme}}/css/css/TIBrZv3B8d59u5hmp5Xg4tM4vZk4u4u1.css">
+<style>
+	.videocard-play-icon {
+    position: absolute;width: 56px; height: 56px; font-size: 30px;left: 50%;top: 50%;
+    border-radius: 50%;background-color: rgba(0,0,0,0.2);
+    background-image: url({{paths.base_path}}img/play_circle_filled_white_48dp.png);background-position: center;-webkit-background-size: 48px 48px;background-size: 48px 48px;color: #fff;margin-top: -28px;margin-left: -28px;
+}
+</style>

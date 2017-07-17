@@ -1,0 +1,66 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+
+{% if user.id == profile.id %} {% set owner = true %} {% endif %}
+
+<div class="container clearfix	well edit-profile-container"> 
+
+	{% embed 'sidebar_user_administration.html' %}{% endembed %}
+
+	<div class="content col-lg-9 "> 
+		<div class="col-lg-12">
+			<ul class="nav nav-tabs" role="tablist">
+				  <li role="presentation" class="active"><a href="#300x280" aria-controls="300x280" role="tab" data-toggle="tab">{{ attribute(lang,'300 x 280 Ad size') }}</a></li>
+			</ul>
+	</div>
+		<div class="tab-content">
+		    <div role="tabpanel" class="tab-pane active" id="#300x280">
+
+		    	
+
+		    	<form action="" method="post" id="editprofileform">
+		    		
+		    		<div class="field col-lg-12">
+			    		<div class="col-lg-3">
+			    			<div class="avatar pull-right">
+								<a href="{{paths.base_path}}/profile.php?name={{user.username}}">
+									<img src="{{user.avatar}}" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+								</a>
+							</div>
+						</div>
+						<div class="col-lg-9">
+							<h3>{{user.username}}</h3>
+						</div>
+		    		</div>
+		    		{% if flash == true %}	
+					<div class="field col-lg-9 col-lg-push-3">
+						<div class="alert alert-success alert-dismissible" role="alert">
+	  							<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						  {{ flash|raw }}
+						</div>
+					</div>
+					{% endif %}
+					<div class="field col-lg-12">
+		              <div class="col-lg-3">
+		              	<label for="edit-bio" class="pull-right"><h5 class="tar">  {{ attribute(lang,'300 x 280 Ad code')}} </h5></label>
+		              </div>
+		              <div class="col-lg-9">
+		              	<textarea name="_300by280_field" id="_300by280_field" cols="30" rows="10" class="form-control validation">{{ad_codes._300by280}}</textarea>
+		              	<label class="error text-danger" id="error-300x280_field"></label>
+		              </div>
+		            </div>
+		            <div class="field clearfix col-lg-9 col-lg-push-3 ">
+		              <a href="#" class="btn btn-default pull-right" id="edit-user-ads-btn"> {{ attribute(lang,'Edit Profile')}} </a>
+		            </div>
+
+		            <input type="hidden" name="token" class="form-control" id="token" value="{{token}}">
+		          </form>
+		    
+		    </div>
+		 </div>
+	</div>
+
+</div>
+
+{% embed 'footer.html' %} {% endembed %}

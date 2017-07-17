@@ -1,0 +1,53 @@
+{% embed 'header.html' %} {% endembed %}
+
+{% embed 'navigation.html' %} {% endembed %}
+
+{% if user.id == profile.id %} {% set owner = true %} {% else %} {% set owner = false %} {% endif %}
+
+		<div class="row profile">
+			<div class="container profile-cover">
+				<div class="col-lg-3">
+					<div class="col-lg-12">
+						<img src="{{profile.avatar}}" class="img-responsive profile-avatar" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+					</div>
+				</div>
+				<div class="col-lg-8">
+					<div class="col-lg-12">
+						<div>
+							<h2 class="pull-left">{{profile.first_name}} {{profile.last_name}}</h2>{% if owner %}<a href="{{paths.base_path}}/editprofile.php" class="btn btn-default edit-profile-btn">{{ attribute(lang,'Edit Profile') }}</a>{% endif %}
+							{% if follows is not null and not owner %}
+								{% if follows %}
+									<a href="#" class="btn btn-danger edit-profile-btn connect" data-connection="unsubscribe" data-resource-id="{{profile.id}}">{{ attribute(lang,'Stop following') }}</a>
+								{% endif %}	
+								{% if not follows %}
+									<a href="#" class="btn btn-danger edit-profile-btn connect" data-connection="subscribe" data-resource-id="{{profile.id}}">{{ attribute(lang,'Follow') }}</a>
+
+
+								{% endif %}	
+							{% endif %}
+						</div>
+						<div class="clearfix"></div>
+						<div class="card-content">
+							@{{profile.username}}
+						</div>
+						<div class="card-content p10 pl0">
+							<strong>{{profile.followers}}</strong> {{attribute(lang,'followers')}}
+						</div>
+						<div class="card-content ">
+							<strong>{{profile.following}}</strong> {{attribute(lang,'following')}}
+						</div>
+						<div><h5 class="bold">{{profile.bio}}</h5></div>
+				</div>
+			</div>
+			</div>
+
+			<div class="container ">
+				
+				{{recentVideos|raw }}
+				
+			</div>
+
+		</div>
+
+	
+{% embed 'footer.html' %} {% endembed %}

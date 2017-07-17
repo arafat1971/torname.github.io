@@ -1,0 +1,185 @@
+</head>
+<body>
+
+<div id="commenttemplate" class="hidden">
+	<div class=" reply col-lg-12   clearfix" id="22">
+				<div class="pull-left">
+					<div class="c-ytsubscribe pull-left channel-avatar">
+						<div class="avatar pull-left">
+							<a href="{{paths.base_path}}/profile.php?name={{user.username}}">
+								<img src="{{user.avatar}}" alt="" class="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="last-video-title comment-content pull-left">
+						<div>
+							<a href="{{paths.base_path}}/profile.php?name={{user.username}}" class="comment-username">{{user.username}}</a>
+						</div>
+						<div id="commenttemplatecontent"></div>
+						<div>
+							<span class="comment-meta pull-right">{{attribute(lang,'just now')}}</span>
+							<div class="clearfix"></div>
+						</div>
+						<div class="alert alert-danger  comment-error hidden" role="alert"> 
+							{{attribute(lang,'Unable to add comment, Try again !')|raw}}
+						</div>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+</div>
+<nav class="navbar navbar-default theme-navbar navbar-fixed-top hidden-xs hidden-sm hidden-md navbar-2 " data-headroom id="navbar-2"> 
+	<div class="container"> 
+		<!-- <ul class="nav navbar-nav navbar-left">
+				<li>
+					<a href="#" class="hamburguer"> <span class="glyphicon glyphicon-menu-hamburger"></span></a>
+				</li>
+		</ul> -->
+		<ul class="nav navbar-nav ">
+		{% if user %}
+				<!-- <li>
+					<a href="{{paths.base_path}}/timeline.php" {{ view == 'feed' ? 'class="active-menu"' : ' '}} >
+						{{attribute(lang,'Videos Timeline')}}
+					</a>
+				</li> -->
+		{% endif %}
+				<li>
+					<a href="{{paths.base_path}}/all.php"   {{ view == 'all' ? 'class="active-menu"' : ' '}} >
+						{{attribute(lang,'All Videos')}}
+					</a>
+				</li>
+				<li >
+					<a href="{{paths.base_path}}/last.php"  {{ view == 'last' ? 'class="active-menu"' : ' '}} >
+						{{attribute(lang,'Last on Mytube')}}
+					</a>
+				</li>
+		</ul>
+		{% if user %}
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a href="{{paths.base_path}}/broken.php" class="navbar-icon">
+					<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+					{% if user.brokenVideos > 0 %}
+						<span class="badge notificationsCount">
+							{{user.brokenVideos}}
+						</span>
+					{% endif %}
+				</a>
+			</li>
+			<li>
+				<a href="#" class="navbar-icon" data-togle="popover" title="{{attribute(lang,'Notifications')}}" id="notifications">
+					<span class="glyphicon glyphicon-bell " aria-hidden="true"></span>
+					{% if user.notificationsCount > 0 %}
+						<span class="badge notificationsCount">
+							{{user.notificationsCount}}
+						</span>
+					{% endif %}
+				</a>
+			</li>
+			<li>
+				<a href="{{paths.base_path}}/activity.php" {{ view == 'activity' ? 'class="active-menu"' : ' '}} >
+					{{attribute(lang,'Activity Feed')}}
+				</a>
+			</li>
+		</ul>
+		{% endif %}
+		
+		
+	
+	</div>
+</nav>
+<nav class="navbar navbar-default theme-navbar navbar-fixed-top"> 
+	<div class="container"> 
+		
+		<div class="navbar-header"> 
+			
+			<a href="{{paths.base_path}}" class="navbar-brand">
+				<img src="{{ paths.base_path }}/templates/{{options.theme}}/img/logo.png" alt="">
+			</a>
+			<a href="{{paths.base_path}}" class="navbar-brand">
+				<span>{{options.sitename}}</span>
+			</a>
+			<button type="button" class="collapsed navbar-toggle" data-toggle="collapse" data-target="#collapser" aria-expanded="false">
+				 <span class="sr-only">Toggle navigation</span> 
+				 <span class="icon-bar"></span> 
+				 <span class="icon-bar"></span> 
+				 <span class="icon-bar"></span> 
+			</button>
+			
+		</div> 
+		
+		<div class="collapse navbar-collapse" id="collapser">
+			
+			{% if (user) %}
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="{{paths.base_path}}/settings.php" class="navbar-icon">
+					<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+				</a>
+				</li>
+			</ul>
+			<div class="dropdown pull-right">
+			  <button class="btn btn-default dropdown-toggle navbar-btn transparent-btn light-theme-btn" type="button" data-toggle="dropdown">{{user.username}} <span class="caret"></span></button>
+			  <ul class="dropdown-menu">
+			  	<li><a href="{{paths.base_path}}/profile.php">{{ attribute(lang,'Profile') }}</a></li>
+			  	<li><a href="{{paths.base_path}}/editprofile.php">{{ attribute(lang,'Edit Profile') }}</a></li>
+			    <li><a href="{{paths.base_path}}/timeline.php">{{ attribute(lang,'Timeline') }}</a></li>
+				<li class="divider"></li>
+			    <li><a href="{{paths.base_path}}/all.php">{{ attribute(lang,'All videos') }}</a></li><!-- 
+			    <li><a href="{{paths.base_path}}/history.php">{{ attribute(lang,'History') }}</a></li> -->
+			  	{% if options.ads_user|lower == 'yes' %}
+			    <li><a href="{{paths.base_path}}/manageads.php">{{attribute(lang,'Advertisement')}}</a></li>
+				{% endif %}
+				{% if user.group == 1 %} 
+				<li class="divider"></li>
+				<li><a href="{{paths.base_path}}/admin">{{ attribute(lang,'Admin Dashboard') }}</a></li>
+				{%endif%}
+				<li class="divider"></li>
+				<li><a href="logout.php">{{ attribute(lang,'Log out') }}</a></li>
+			  </ul>
+			</div> 
+			
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<a href="{{paths.base_path}}/profile.php" class="nav-profile-img-link">
+						<img src="{{user.avatar}}" class="img-responsive nav-profile-image" alt="" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+					</a>
+				</li>
+			</ul>
+			{% endif %}
+			{% if (user) %}
+			<div class="dropdown pull-right">
+			<!-- <a href="#" id="addvideo-btn" class="btn btn-danger pull-right navbar-btn" data-toggle="modal" data-target="#addvideoModal">{{ attribute(lang,'Add video') }}</a> -->
+			 <button class="btn btn-default dropdown-toggle navbar-btn light-theme-btn" type="button" data-toggle="dropdown">{{ attribute(lang,'Add video') }}</button>
+			 <ul class="dropdown-menu">
+			 	 {% if options.local_upload == 1 %}
+				 	<li><a href="{{paths.base_path}}/add.php">{{ attribute(lang,'Upload') }}</a></li>
+				 {% endif %}
+				 {% if options.youtube_upload == 1 %}
+				 	<li><a href="#" id="addvideo-btn" class="" data-toggle="modal" data-target="#importYoutubeVideoModal">{{ attribute(lang,'From Youtube') }}</a></li>
+				 {% endif %}
+				 {% if options.vimeo_upload == 1 %}
+				 	<li><a href="#" id="addvideo-btn" class="" data-toggle="modal" data-target="#importVimeoVideoModal">{{ attribute(lang,'From Vimeo') }}</a></li>
+				 {% endif %}
+			 </ul>
+			</div> 
+			{% endif %}
+			{% if not (user) %}
+			<a href="#" id="addvideo-btn" class="btn btn-default pull-right navbar-btn light-theme-btn" type="button"  data-toggle="modal" data-target="#logModal">{{ attribute(lang,'Add video') }}</a>
+			{% endif %}
+
+			<form class="navbar-form navbar-right" role="search" action="search.php" method="get">
+			  <input type="hidden" name="token" value="{{token}}">	
+			  <div class="input-group">
+			    <input type="text" class="form-control search-input" name="q">
+			    <span class="input-group-btn">
+			  		<button type="submit" class="btn btn-default search-button"><span class="glyphicon glyphicon-search" ></span></button>
+			  	</span>
+			  </div>	
+			</form>
+		</div> 
+
+	</div>
+</nav>
+<div id="block"> </div>
+

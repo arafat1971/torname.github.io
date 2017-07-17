@@ -1,0 +1,23 @@
+<div class=" pull-left clearfix pr0 pl0 col-lg-12">
+	<div class="activity-container activity-post-form">
+		<div>
+			<div class="card-header  mb0 clearfix">
+				<div class="avatar pull-left activity-post-form-avatar">
+					<a href="{{paths.base_path}}profile.php?name={{user.username}}">
+						<img src="{{user.avatar}}" onerror="this.onerror=null;this.src='{{paths.base_path}}/storage/avatar/default.png';">
+					</a>
+				</div>
+				<div class="col-lg-11 pull-left pr0">
+					<form class=" " action="{{path.base_path}}activity.php" method="POST">
+					  <input type="hidden" name="token" value="{{token}}">
+					  <textarea  class="form-control" placeholder="{{attribute(lang,'what is happening ?')}}" name="p" id="p_form"></textarea>
+					  <div class="col-lg-12 clearfix p10 pr0 pb0" id="publish_btn_container">
+					  		<input type="submit" href="#" class="btn btn-default pull-right dark-theme-btn" id="publish_btn" value="Publish">
+					  </div>	
+					</form>
+				</div>
+				<div class="clearfix"></div>	
+			</div>	
+		</div>
+	</div>
+</div>
